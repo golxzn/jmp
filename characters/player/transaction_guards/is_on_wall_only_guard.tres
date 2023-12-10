@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="ExpressionGuard" load_steps=2 format=3 uid="uid://c3kncxxcp7kjh"]
+
+[ext_resource type="Script" path="res://addons/godot_state_charts/expression_guard.gd" id="1_c4fgm"]
+
+[resource]
+script = ExtResource("1_c4fgm")
+expression = "is_on_wall_only"

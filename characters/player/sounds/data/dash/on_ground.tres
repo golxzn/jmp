@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SoundData" load_steps=3 format=3 uid="uid://b4voax8xjmd88"]
+
+[ext_resource type="AudioStream" uid="uid://e2lx04mmn2fx" path="res://sounds/movement/dash.wav" id="1_aii1x"]
+[ext_resource type="Script" path="res://characters/player/sounds/sound_data.gd" id="1_tqrnn"]
+
+[resource]
+script = ExtResource("1_tqrnn")
+default_sound = ExtResource("1_aii1x")
+default_sound_start = 0.0
+last_chance_sound_start = 0.0
