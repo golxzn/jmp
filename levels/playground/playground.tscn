@@ -765,6 +765,7 @@ shape = SubResource("RectangleShape2D_4fit2")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="TileMap/MemeSounds/SinfulCityMusic"]
 stream = ExtResource("6_fjo62")
+bus = &"playground"
 
 [node name="RockEyebrowRaise" type="Node2D" parent="TileMap/MemeSounds" node_paths=PackedStringArray("sound")]
 position = Vector2(3460, -1126)
@@ -778,6 +779,7 @@ shape = SubResource("RectangleShape2D_0syet")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="TileMap/MemeSounds/RockEyebrowRaise"]
 stream = ExtResource("8_81dnw")
+bus = &"playground"
 
 [node name="OhMyGod" type="Node2D" parent="TileMap/MemeSounds" node_paths=PackedStringArray("sound")]
 position = Vector2(4839, -681)
@@ -791,6 +793,7 @@ shape = SubResource("RectangleShape2D_fq1lp")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="TileMap/MemeSounds/OhMyGod"]
 stream = ExtResource("9_x4kym")
+bus = &"playground"
 
 [node name="LookAtThis" type="Node2D" parent="TileMap/MemeSounds" node_paths=PackedStringArray("sound")]
 position = Vector2(-328, -298)
@@ -805,6 +808,7 @@ shape = SubResource("RectangleShape2D_vxpvq")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="TileMap/MemeSounds/LookAtThis"]
 stream = ExtResource("11_kg83c")
+bus = &"playground"
 
 [connection signal="body_entered" from="TileMap/Teleport/Area2D" to="TileMap/Teleport" method="teleport"]
 [connection signal="body_entered" from="TileMap/MemeSounds/SinfulCityMusic/Area2D" to="TileMap/MemeSounds/SinfulCityMusic" method="try_to_play_sound"]

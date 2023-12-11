@@ -91,6 +91,7 @@ script = ExtResource("5_syy6v")
 player = NodePath("AudioStreamPlayer")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="SoundManager"]
+bus = &"player_movement"
 
 [node name="Timers" type="Node" parent="."]
 
