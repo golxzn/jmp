@@ -276,20 +276,27 @@ func _on_wall_state_physics_processing(delta: float):
 	# - dash (only to the opposite side of the wall) | ->
 	if not climbing_timer.is_climbing():
 		set_state(PlacemantState.MidAir)
+	elif is_on_floor():
+		set_state(PlacemantState.Ground)
 
-	var wall_normal: Vector2 = get_wall_normal()
-	if ask_for_jump:
-		ask_for_jump = false
-		set_state(PlacemantState.MidAir)
-		velocity = (wall_normal + up_direction).normalized() * JUMP_VELOCITY
-		jump.emit(self, PlacemantState.Wall, NOT_LAST_CHANCE)
+	if not is_on_floor():
+		var wall_normal: Vector2 = get_wall_normal()
+		if ask_for_jump:
+			ask_for_jump = false
+			set_state(PlacemantState.MidAir)
+			velocity = (wall_normal + up_direction).normalized() * JUMP_VELOCITY
+			jump.emit(self, PlacemantState.Wall, NOT_LAST_CHANCE)
 
-	if ask_for_dash:
-		ask_for_dash = false
-		set_state(PlacemantState.MidAir)
-		dashing_timer.start_dash()
-		dash.emit(self, PlacemantState.Wall, NOT_LAST_CHANCE)
-		velocity = wall_normal * DASH_SPEED
+		if ask_for_dash:
+			ask_for_dash = false
+			set_state(PlacemantState.MidAir)
+			dashing_timer.start_dash()
+			dash.emit(self, PlacemantState.Wall, NOT_LAST_CHANCE)
+			velocity = wall_normal * DASH_SPEED
+
+	else:
+		if jump_if_possible(): jump.emit(self, PlacemantState.Ground, NOT_LAST_CHANCE)
+		if dash_if_possible(): dash.emit(self, PlacemantState.Ground, NOT_LAST_CHANCE)
 
 	movement(accelerations[PlacemantState.Wall], delta)
 
