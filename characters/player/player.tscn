@@ -56,7 +56,7 @@ func _update_debug_label():
 "
 
 [node name="player" type="CharacterBody2D"]
-position = Vector2(0, 1)
+process_mode = 1
 collision_mask = 3
 safe_margin = 0.1
 script = ExtResource("1_mfave")
@@ -188,6 +188,7 @@ script = ExtResource("6_gsiui")
 [node name="Window" type="Window" parent="DebugCanvasLayer"]
 position = Vector2i(15, 40)
 size = Vector2i(300, 500)
+visible = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="DebugCanvasLayer/Window"]
 anchors_preset = 15

@@ -51,6 +51,7 @@ class PlacemantState:
 @onready var climbing_timer: ClimbingTimer = $Timers/ClimbingTimer
 
 @onready var ray_to_bottom: RayCast2D = $PlayerCollision/RayToBottom
+@onready var remote_transform: RemoteTransform2D = $RemoteTransform2D
 @onready var state_chart: StateChart = $StateChart
 #endregion onready variables
 
