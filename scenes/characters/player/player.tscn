@@ -1,0 +1,221 @@
+[gd_scene load_steps=19 format=3 uid="uid://bs3d5i8crch84"]
+
+[ext_resource type="Texture2D" uid="uid://bwn7ygyb0odym" path="res://assets/images/textures/cubes/cube.png" id="1_kmqy5"]
+[ext_resource type="Script" path="res://scenes/characters/player/player.gd" id="1_mfave"]
+[ext_resource type="Curve" uid="uid://b4gxfw82qvdds" path="res://scenes/characters/player/curves/DashSpeedCurve.tres" id="2_ou0dm"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="3_o6cun"]
+[ext_resource type="Curve" uid="uid://bvfqik0okq6ni" path="res://scenes/characters/player/curves/ClimbResistanceCurve.tres" id="3_tgmky"]
+[ext_resource type="Script" path="res://scenes/characters/player/timers/DashingTimer.gd" id="3_u26qj"]
+[ext_resource type="Script" path="res://scenes/characters/player/timers/ClimbingTimer.gd" id="4_mvqst"]
+[ext_resource type="Script" path="res://scenes/characters/player/timers/CoyoteTimer.gd" id="5_jy4sq"]
+[ext_resource type="Script" path="res://scenes/characters/player/sounds/sound_manager.gd" id="5_syy6v"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="5_uoeii"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="6_gsiui"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="7_2mu1g"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/parallel_state.gd" id="10_3q06q"]
+[ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="16_3mc08"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ony1w"]
+size = Vector2(17, 17)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3eunv"]
+size = Vector2(16, 16)
+
+[sub_resource type="SystemFont" id="SystemFont_imhab"]
+font_names = PackedStringArray("Consolas")
+subpixel_positioning = 0
+
+[sub_resource type="GDScript" id="GDScript_07sij"]
+script/source = "extends Label
+
+@export var target: Player
+
+func _ready():
+	assert(target != null, \"Target player has to be set\")
+
+func _process(_delta):
+	_update_debug_label()
+
+func _update_debug_label():
+	if not target: return
+
+	text = \"\"\"Dashing Progress:  %.3f
+	Climbing Progress: %.3f
+	Coyote Progress: %.3f
+	Velocity: [%.3f, %.3f]
+	Ask for jump: %s
+	Ask for dash: %s
+	\"\"\" % [
+		target.dashing_timer.progress(),
+		target.climbing_timer.progress(),
+		target.coyote_timer.progress(),
+		target.velocity.x, target.velocity.y,
+		str(target.ask_for_jump),
+		str(target.ask_for_dash)
+	]
+"
+
+[node name="player" type="CharacterBody2D"]
+process_mode = 1
+collision_mask = 3
+safe_margin = 0.1
+script = ExtResource("1_mfave")
+dash_speed_curve = ExtResource("2_ou0dm")
+climb_resistance_curve = ExtResource("3_tgmky")
+
+[node name="sprite" type="Sprite2D" parent="."]
+position = Vector2(0, 2.38419e-07)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_kmqy5")
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("RectangleShape2D_ony1w")
+debug_color = Color(0.952941, 0.145098, 0.423529, 0.419608)
+
+[node name="PlayerCollision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_3eunv")
+
+[node name="RayToBottom" type="RayCast2D" parent="PlayerCollision"]
+position = Vector2(0, 8)
+target_position = Vector2(0, 10)
+
+[node name="AudioListener2D" type="AudioListener2D" parent="."]
+current = true
+
+[node name="SoundManager" type="Node2D" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("5_syy6v")
+player = NodePath("AudioStreamPlayer")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="SoundManager"]
+bus = &"player_movement"
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="CoyoteTimer" type="Timer" parent="Timers"]
+process_callback = 0
+wait_time = 0.1
+one_shot = true
+script = ExtResource("5_jy4sq")
+
+[node name="DashingTimer" type="Timer" parent="Timers"]
+wait_time = 0.3
+one_shot = true
+script = ExtResource("3_u26qj")
+next_dash_treshold = 0.05
+
+[node name="ClimbingTimer" type="Timer" parent="Timers"]
+script = ExtResource("4_mvqst")
+
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("3_o6cun")
+
+[node name="ParallelState" type="Node" parent="StateChart"]
+script = ExtResource("10_3q06q")
+
+[node name="MovementStates" type="Node" parent="StateChart/ParallelState"]
+script = ExtResource("5_uoeii")
+initial_state = NodePath("mid_air")
+
+[node name="on_ground" type="Node" parent="StateChart/ParallelState/MovementStates"]
+script = ExtResource("6_gsiui")
+
+[node name="to_coyote" type="Node" parent="StateChart/ParallelState/MovementStates/on_ground"]
+script = ExtResource("7_2mu1g")
+to = NodePath("../../as_coyote")
+event = &"placemant_state/coyote"
+
+[node name="to_air" type="Node" parent="StateChart/ParallelState/MovementStates/on_ground"]
+script = ExtResource("7_2mu1g")
+to = NodePath("../../mid_air")
+event = &"placemant_state/mid_air"
+
+[node name="as_coyote" type="Node" parent="StateChart/ParallelState/MovementStates"]
+script = ExtResource("6_gsiui")
+
+[node name="to_wall" type="Node" parent="StateChart/ParallelState/MovementStates/as_coyote"]
+script = ExtResource("7_2mu1g")
+to = NodePath("../../on_wall")
+event = &"placemant_state/wall"
+
+[node name="to_air" type="Node" parent="StateChart/ParallelState/MovementStates/as_coyote"]
+script = ExtResource("7_2mu1g")
+to = NodePath("../../mid_air")
+event = &"placemant_state/mid_air"
+
+[node name="mid_air" type="Node" parent="StateChart/ParallelState/MovementStates"]
+script = ExtResource("6_gsiui")
+
+[node name="to_wall" type="Node" parent="StateChart/ParallelState/MovementStates/mid_air"]
+script = ExtResource("7_2mu1g")
+to = NodePath("../../on_wall")
+event = &"placemant_state/wall"
+
+[node name="to_ground" type="Node" parent="StateChart/ParallelState/MovementStates/mid_air"]
+script = ExtResource("7_2mu1g")
+to = NodePath("../../on_ground")
+event = &"placemant_state/ground"
+
+[node name="on_wall" type="Node" parent="StateChart/ParallelState/MovementStates"]
+script = ExtResource("6_gsiui")
+
+[node name="to_air" type="Node" parent="StateChart/ParallelState/MovementStates/on_wall"]
+script = ExtResource("7_2mu1g")
+to = NodePath("../../mid_air")
+event = &"placemant_state/mid_air"
+delay_seconds = 0.1
+
+[node name="PlayerStates" type="Node" parent="StateChart/ParallelState"]
+script = ExtResource("5_uoeii")
+initial_state = NodePath("alive")
+
+[node name="alive" type="Node" parent="StateChart/ParallelState/PlayerStates"]
+script = ExtResource("6_gsiui")
+
+[node name="die" type="Node" parent="StateChart/ParallelState/PlayerStates/alive"]
+script = ExtResource("7_2mu1g")
+to = NodePath("../../died")
+event = &"player_state/die"
+
+[node name="died" type="Node" parent="StateChart/ParallelState/PlayerStates"]
+script = ExtResource("6_gsiui")
+
+[node name="DebugCanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Window" type="Window" parent="DebugCanvasLayer"]
+position = Vector2i(15, 40)
+size = Vector2i(300, 500)
+visible = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DebugCanvasLayer/Window"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 5
+
+[node name="StateChartDebugger" parent="DebugCanvasLayer/Window/VBoxContainer" instance=ExtResource("16_3mc08")]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+initial_node_to_watch = NodePath("../../../../StateChart")
+
+[node name="debug_info" type="Label" parent="DebugCanvasLayer/Window/VBoxContainer" node_paths=PackedStringArray("target")]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("SystemFont_imhab")
+script = SubResource("GDScript_07sij")
+target = NodePath("../../../..")
+
+[connection signal="dash" from="." to="SoundManager" method="_on_player_dash"]
+[connection signal="jump" from="." to="SoundManager" method="_on_player_jump"]
+[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
+[connection signal="state_physics_processing" from="StateChart/ParallelState/MovementStates/on_ground" to="." method="_on_ground_state_physics_processing"]
+[connection signal="state_physics_processing" from="StateChart/ParallelState/MovementStates/as_coyote" to="." method="_as_coyote_state_physics_processing"]
+[connection signal="state_physics_processing" from="StateChart/ParallelState/MovementStates/mid_air" to="." method="_in_air_state_physics_processing"]
+[connection signal="state_physics_processing" from="StateChart/ParallelState/MovementStates/on_wall" to="." method="_on_wall_state_physics_processing"]

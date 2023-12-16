@@ -11,14 +11,14 @@ config_version=5
 [application]
 
 config/name="jmp"
-run/main_scene="res://levels/Main.tscn"
+run/main_scene="res://scenes/Main.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 run/max_fps=60
-config/icon="res://objects/cube/cube.png"
+config/icon="res://assets/images/textures/cubes/cube.png"
 
 [autoload]
 
-UiSoundManager="*res://managers/ui_sound_manager.tscn"
+UiSoundManager="*res://scenes/managers/ui_sound_manager.tscn"
 
 [display]
 
@@ -30,6 +30,21 @@ window/stretch/aspect="keep_width"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/godot_state_charts/plugin.cfg")
+
+[file_customization]
+
+folder_colors={
+"res://addons/": "red",
+"res://assets/": "purple",
+"res://assets/audio/": "blue",
+"res://assets/configs/": "orange",
+"res://assets/fonts/": "gray",
+"res://assets/images/": "teal",
+"res://assets/shaders/": "pink",
+"res://assets/tilemaps/": "red",
+"res://scenes/": "orange",
+"res://scripts/": "blue"
+}
 
 [input]
 
