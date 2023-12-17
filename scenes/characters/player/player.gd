@@ -145,10 +145,12 @@ func _process(_delta: float):
 	state_chart.set_expression_property("is_on_wall_only", is_on_wall_only())
 
 func _physics_process(delta: float):
-	if is_disabled(): return
 	check_climbing()
 	check_coyote()
 	check_gravity(delta)
+
+	if is_disabled() and velocity.x:
+		velocity.x = move_toward(velocity.x, 0, accelerations[PlacemantState.Ground] * delta)
 
 	velocity = velocity.limit_length(MAXIMUM_SPEED)
 

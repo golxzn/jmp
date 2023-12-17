@@ -4,7 +4,7 @@
 
 [node name="Main" type="Node" node_paths=PackedStringArray("main_menu_place", "game_place")]
 script = ExtResource("1_tywki")
-main_menu_place = NodePath(".")
+main_menu_place = NodePath("UI")
 game_place = NodePath(".")
 
 [node name="MainCam" type="Camera2D" parent="."]
@@ -16,3 +16,5 @@ position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 editor_draw_limits = true
 editor_draw_drag_margin = true
+
+[node name="UI" type="CanvasLayer" parent="."]

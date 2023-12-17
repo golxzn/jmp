@@ -50,7 +50,11 @@ func _load_main_menu():
 func _setup_camera(camera: Camera2D):
 	assert(current_level != null, "Cannot setup camera: current_level is null")
 
-	current_level.camera.enabled = true
+	var previous_camera: Camera2D = get_viewport().get_camera_2d()
+	if previous_camera != null:
+		previous_camera.enabled = false
+
+	camera.enabled = true
 	camera.make_current()
 	if camera:
 		current_level.player.remote_transform.remote_path = camera.get_path()
@@ -59,8 +63,6 @@ func _setup_camera(camera: Camera2D):
 func _on_play_button_pressed():
 	main_menu.hide_menu()
 	await main_menu.main_menu_hide_animation_complete
-
-	main_camera.enabled = false
 
 	_setup_camera(current_level.camera)
 

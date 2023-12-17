@@ -1,4 +1,4 @@
-class_name MainMenu extends CanvasLayer
+class_name MainMenu extends Control
 
 signal play_button_pressed
 signal exit_button_pressed
