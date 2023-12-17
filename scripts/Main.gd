@@ -46,7 +46,6 @@ func _load_main_menu():
 		main_menu.exit_button_pressed.connect(self._on_exit_button_pressed)
 		main_menu_place.add_child(main_menu)
 
-
 func _setup_camera(camera: Camera2D):
 	assert(current_level != null, "Cannot setup camera: current_level is null")
 
@@ -62,7 +61,6 @@ func _setup_camera(camera: Camera2D):
 
 func _on_play_button_pressed():
 	main_menu.hide_menu()
-	await main_menu.main_menu_hide_animation_complete
 
 	_setup_camera(current_level.camera)
 
