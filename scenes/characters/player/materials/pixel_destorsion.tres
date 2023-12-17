@@ -1,0 +1,33 @@
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://cbnc41iyr8fjq"]
+
+[ext_resource type="Shader" path="res://assets/shaders/pixel_explosion.gdshader" id="1_40jo8"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_8ywy2"]
+noise_type = 0
+seed = 1
+frequency = 0.5
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_hk4cq"]
+width = 16
+height = 16
+generate_mipmaps = false
+noise = SubResource("FastNoiseLite_8ywy2")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_jtkll"]
+noise_type = 0
+seed = 2
+frequency = 0.5
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_echur"]
+width = 16
+height = 16
+generate_mipmaps = false
+as_normal_map = true
+noise = SubResource("FastNoiseLite_jtkll")
+
+[resource]
+shader = ExtResource("1_40jo8")
+shader_parameter/progress = 0.0
+shader_parameter/strength = 1.165
+shader_parameter/noise_tex_normal = SubResource("NoiseTexture2D_echur")
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_hk4cq")

@@ -2,7 +2,10 @@ class_name Player extends CharacterBody2D
 
 #region signals
 
-signal player_die
+signal player_spawned
+signal player_disabled
+signal player_destroyed
+
 signal dash(player: Player, state: String, is_last_chance: bool)
 signal jump(player: Player, state: String, is_last_chance: bool)
 
@@ -31,6 +34,15 @@ class PlacemantState:
 	const Coyote: String = 'placemant_state/coyote'
 	const MidAir: String = 'placemant_state/mid_air'
 	const Wall: String   = 'placemant_state/wall'
+
+class PlayerState:
+	const Enable:  String = 'player_state/enable'
+	const Disable: String = 'player_state/disable'
+
+class Animations:
+	const Spawn: String = 'player_spawn'
+	const Death: String = 'player_death'
+
 #endregion constants
 
 #region export variables
@@ -54,18 +66,44 @@ class PlacemantState:
 @onready var ray_to_bottom: RayCast2D = $PlayerCollision/RayToBottom
 @onready var remote_transform: RemoteTransform2D = $RemoteTransform2D
 @onready var state_chart: StateChart = $StateChart
+
+@onready var animations: AnimationPlayer = $AnimationPlayer
+@onready var broken_lighting: Control = $VFX/BrokenLightings
 #endregion onready variables
 
 enum Face { Left = -1, Right = 1 }
 var face_direction: Face = Face.Right
 
-var active: bool = false
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") as float
-var current_state: String = PlacemantState.MidAir
+var current_movement_state: String = PlacemantState.MidAir
+var current_player_state: String = PlayerState.Disable
 var was_on_floor: bool = false
 var was_on_wall: bool = false
 var ask_for_jump: bool = false
 var ask_for_dash: bool = false
+
+func is_enabled()  -> bool: return current_player_state == PlayerState.Enable
+func is_disabled() -> bool: return current_player_state == PlayerState.Disable
+
+func spawn():
+	broken_lighting.visible = false
+	animations.play(Animations.Spawn)
+	await animations.animation_finished
+	set_player_state(PlayerState.Enable)
+	player_spawned.emit()
+
+func die():
+	broken_lighting.visible = true
+	set_player_state(PlayerState.Disable)
+	player_disabled.emit()
+
+func destroy():
+	broken_lighting.visible = false
+	animations.play(Animations.Death)
+	await animations.animation_finished
+	player_destroyed.emit()
+	call_deferred("queue_free")
+
 
 func get_climbing_gravity_modifier() -> float:
 	if climbing_timer.is_climbing():
@@ -107,7 +145,7 @@ func _process(_delta: float):
 	state_chart.set_expression_property("is_on_wall_only", is_on_wall_only())
 
 func _physics_process(delta: float):
-	if not active: return
+	if is_disabled(): return
 	check_climbing()
 	check_coyote()
 	check_gravity(delta)
@@ -199,7 +237,7 @@ func movement(acceleration: float, delta: float):
 
 func _on_hit_box_body_entered(body: Node2D):
 	print("On hit box body entered: ", str(body))
-	state_chart.send_event("player_state/die")
+	die()
 
 #endregion Collision callbacks
 
@@ -232,13 +270,13 @@ func _on_coyote_timer_timeout():
 #region Movement States
 
 func set_movement_state(state: String):
-	# print("Change state from [%s] to [%s]" % [current_state, state])
-	if state != current_state:
-		current_state = state
-		state_chart.send_event(current_state)
+	# print("Change state from [%s] to [%s]" % [current_movement_state, state])
+	if state != current_movement_state:
+		current_movement_state = state
+		state_chart.send_event(current_movement_state)
 
 func _on_ground_state_physics_processing(delta: float):
-	if not active: return
+	if is_disabled(): return
 	# On ground we can:
 	# - move left/right
 	# - jump
@@ -250,7 +288,7 @@ func _on_ground_state_physics_processing(delta: float):
 
 
 func _as_coyote_state_physics_processing(delta: float):
-	if not active: return
+	if is_disabled(): return
 	# As a coyote we can same as on ground state, but with benefits
 	if jump_if_possible(JUMP_VELOCITY_MODIFIER): jump.emit(self, PlacemantState.Coyote, NOT_LAST_CHANCE)
 	if dash_if_possible(DASH_VELOCITY_MODIFIER): dash.emit(self, PlacemantState.Coyote, NOT_LAST_CHANCE)
@@ -258,7 +296,7 @@ func _as_coyote_state_physics_processing(delta: float):
 
 
 func _in_air_state_physics_processing(delta: float):
-	if not active: return
+	if is_disabled(): return
 	# Mid air we can:
 	# - move left/right
 	# - dash
@@ -277,7 +315,7 @@ func _in_air_state_physics_processing(delta: float):
 
 
 func _on_wall_state_physics_processing(delta: float):
-	if not active: return
+	if is_disabled(): return
 	# On the wall we can:
 	# - move to the opposite side (with timeout, like 0.5 - 1.0 seconds to hold the key)
 	# - jump (only to the opposite side of the wall) | ->
@@ -312,12 +350,13 @@ func _on_wall_state_physics_processing(delta: float):
 
 #region Player states
 
-func _on_died_state_entered():
-	active = false
-	player_die.emit()
+func set_player_state(state: String):
+	if state != current_player_state:
+		current_player_state = state
+		state_chart.send_event(current_player_state)
 
-func _on_alive_state_entered():
-	active = true
+func _on_enable_state_entered():
+	spawn()
 
 #region Player states
 
