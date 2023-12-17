@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bs3d5i8crch84"]
+[gd_scene load_steps=26 format=3 uid="uid://bs3d5i8crch84"]
 
 [ext_resource type="Texture2D" uid="uid://bwn7ygyb0odym" path="res://assets/images/textures/cubes/cube.png" id="1_kmqy5"]
 [ext_resource type="Script" path="res://scenes/characters/player/player.gd" id="1_mfave"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="3_o6cun"]
 [ext_resource type="Curve" uid="uid://bvfqik0okq6ni" path="res://scenes/characters/player/curves/ClimbResistanceCurve.tres" id="3_tgmky"]
 [ext_resource type="Script" path="res://scenes/characters/player/timers/DashingTimer.gd" id="3_u26qj"]
+[ext_resource type="Material" uid="uid://cbnc41iyr8fjq" path="res://scenes/characters/player/materials/pixel_destorsion.tres" id="4_fkpy4"]
 [ext_resource type="Script" path="res://scenes/characters/player/timers/ClimbingTimer.gd" id="4_mvqst"]
 [ext_resource type="Script" path="res://scenes/characters/player/timers/CoyoteTimer.gd" id="5_jy4sq"]
 [ext_resource type="Script" path="res://scenes/characters/player/sounds/sound_manager.gd" id="5_syy6v"]
@@ -13,13 +14,82 @@
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="6_gsiui"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="7_2mu1g"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/parallel_state.gd" id="10_3q06q"]
+[ext_resource type="Shader" path="res://assets/shaders/lighting.gdshader" id="15_umysy"]
 [ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="16_3mc08"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lyo8e"]
+shader = ExtResource("15_umysy")
+shader_parameter/effect_color = Color(0.2, 0.3, 0.8, 1)
+shader_parameter/octave_count = 10
+shader_parameter/speed = 5.0
+shader_parameter/initial_amplitude = 0.5
+shader_parameter/gain = 0.5
+shader_parameter/frequency = 2.0
+shader_parameter/min_lighting_width = 0.0
+shader_parameter/max_lighting_width = 0.05
+shader_parameter/alpha_cut_off = 0.3
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ony1w"]
 size = Vector2(17, 17)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3eunv"]
 size = Vector2(16, 16)
+
+[sub_resource type="Animation" id="Animation_aot4q"]
+resource_name = "player_spawn"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_e36qb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_e71wt"]
+resource_name = "player_death"
+length = 0.25
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(6.72717, 0.0426889),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a3hd3"]
+_data = {
+"RESET": SubResource("Animation_e36qb"),
+"player_death": SubResource("Animation_e71wt"),
+"player_spawn": SubResource("Animation_aot4q")
+}
 
 [sub_resource type="SystemFont" id="SystemFont_imhab"]
 font_names = PackedStringArray("Consolas")
@@ -64,11 +134,30 @@ dash_speed_curve = ExtResource("2_ou0dm")
 climb_resistance_curve = ExtResource("3_tgmky")
 
 [node name="sprite" type="Sprite2D" parent="."]
+material = ExtResource("4_fkpy4")
 position = Vector2(0, 2.38419e-07)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_kmqy5")
 
+[node name="VFX" type="Node2D" parent="."]
+
+[node name="BrokenLightings" type="ColorRect" parent="VFX"]
+visible = false
+material = SubResource("ShaderMaterial_lyo8e")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="HitBox" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 2
 
@@ -77,6 +166,7 @@ shape = SubResource("RectangleShape2D_ony1w")
 debug_color = Color(0.952941, 0.145098, 0.423529, 0.419608)
 
 [node name="PlayerCollision" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("RectangleShape2D_3eunv")
 
 [node name="RayToBottom" type="RayCast2D" parent="PlayerCollision"]
@@ -109,6 +199,11 @@ next_dash_treshold = 0.05
 
 [node name="ClimbingTimer" type="Timer" parent="Timers"]
 script = ExtResource("4_mvqst")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_a3hd3")
+}
 
 [node name="StateChart" type="Node" parent="."]
 script = ExtResource("3_o6cun")
@@ -170,18 +265,23 @@ delay_seconds = 0.1
 
 [node name="PlayerStates" type="Node" parent="StateChart/ParallelState"]
 script = ExtResource("5_uoeii")
-initial_state = NodePath("alive")
+initial_state = NodePath("enabled")
 
-[node name="alive" type="Node" parent="StateChart/ParallelState/PlayerStates"]
+[node name="enabled" type="Node" parent="StateChart/ParallelState/PlayerStates"]
 script = ExtResource("6_gsiui")
 
-[node name="die" type="Node" parent="StateChart/ParallelState/PlayerStates/alive"]
+[node name="disable" type="Node" parent="StateChart/ParallelState/PlayerStates/enabled"]
 script = ExtResource("7_2mu1g")
-to = NodePath("../../died")
-event = &"player_state/die"
+to = NodePath("../../disabled")
+event = &"player_state/disable"
 
-[node name="died" type="Node" parent="StateChart/ParallelState/PlayerStates"]
+[node name="disabled" type="Node" parent="StateChart/ParallelState/PlayerStates"]
 script = ExtResource("6_gsiui")
+
+[node name="enable" type="Node" parent="StateChart/ParallelState/PlayerStates/disabled"]
+script = ExtResource("7_2mu1g")
+to = NodePath("../../enabled")
+event = &"player_state/enable"
 
 [node name="DebugCanvasLayer" type="CanvasLayer" parent="."]
 
@@ -219,3 +319,4 @@ target = NodePath("../../../..")
 [connection signal="state_physics_processing" from="StateChart/ParallelState/MovementStates/as_coyote" to="." method="_as_coyote_state_physics_processing"]
 [connection signal="state_physics_processing" from="StateChart/ParallelState/MovementStates/mid_air" to="." method="_in_air_state_physics_processing"]
 [connection signal="state_physics_processing" from="StateChart/ParallelState/MovementStates/on_wall" to="." method="_on_wall_state_physics_processing"]
+[connection signal="state_entered" from="StateChart/ParallelState/PlayerStates/enabled" to="." method="_on_enable_state_entered"]
