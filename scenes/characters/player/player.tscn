@@ -30,10 +30,10 @@ shader_parameter/max_lighting_width = 0.05
 shader_parameter/alpha_cut_off = 0.3
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ony1w"]
-size = Vector2(17, 17)
+size = Vector2(16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3eunv"]
-size = Vector2(16, 16)
+size = Vector2(15, 15)
 
 [sub_resource type="Animation" id="Animation_e36qb"]
 length = 0.001
@@ -130,6 +130,7 @@ process_mode = 1
 collision_mask = 3
 safe_margin = 0.1
 script = ExtResource("1_mfave")
+max_dash_count = 2
 dash_speed_curve = ExtResource("2_ou0dm")
 climb_resistance_curve = ExtResource("3_tgmky")
 
@@ -157,7 +158,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="HitBox" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 2
 
@@ -166,12 +166,11 @@ shape = SubResource("RectangleShape2D_ony1w")
 debug_color = Color(0.952941, 0.145098, 0.423529, 0.419608)
 
 [node name="PlayerCollision" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource("RectangleShape2D_3eunv")
 
 [node name="RayToBottom" type="RayCast2D" parent="PlayerCollision"]
 position = Vector2(0, 8)
-target_position = Vector2(0, 10)
+target_position = Vector2(0, 11)
 
 [node name="AudioListener2D" type="AudioListener2D" parent="."]
 current = true

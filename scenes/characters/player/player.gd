@@ -18,7 +18,7 @@ const NOT_LAST_CHANCE: bool = false
 const SPEED: float         = 300.0
 const MAXIMUM_SPEED: float = 600.0
 
-const DASH_SPEED: float    = 500.0
+const DASH_SPEED: float    = 400.0
 const DASH_VELOCITY_MODIFIER: float = 1.3
 const DASH_VELOCITY_DEFAULT_MODIFIER: float = 1.0
 
@@ -53,6 +53,7 @@ class Animations:
 	PlacemantState.MidAir: 300.0,
 	PlacemantState.Wall:   2000.0,
 }
+@export var max_dash_count: int = 1
 @export var dash_speed_curve: Curve = load("uid://b4gxfw82qvdds")
 @export var climb_resistance_curve: Curve = load("uid://bvfqik0okq6ni")
 @export_category("Movement Sounds")
@@ -77,6 +78,7 @@ var face_direction: Face = Face.Right
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity") as float
 var current_movement_state: String = PlacemantState.MidAir
 var current_player_state: String = PlayerState.Disable
+var dash_count: int = max_dash_count
 var was_on_floor: bool = false
 var was_on_wall: bool = false
 var ask_for_jump: bool = false
@@ -179,7 +181,8 @@ func dash_if_possible(dash_velocity_modifier: float = DASH_VELOCITY_DEFAULT_MODI
 	if not ask_for_dash: return false
 	ask_for_dash = false
 
-	if dashing_timer.can_dash():
+	if dash_count != 0 and dashing_timer.can_dash():
+		dash_count -= 1
 		dashing_timer.start_dash()
 		velocity = get_face_direction_vector() * (DASH_SPEED * dash_velocity_modifier)
 		return true
@@ -219,6 +222,7 @@ func check_gravity(delta: float):
 
 	if on_floor:
 		set_movement_state(PlacemantState.Ground)
+		dash_count = max_dash_count
 	elif not dashing_timer.is_dashing():
 		velocity += -up_direction * gravity * get_climbing_gravity_modifier() * delta
 
