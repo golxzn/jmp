@@ -23,7 +23,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("MarginContainer:position")
+tracks/1/path = NodePath("ButtonsMargins:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -35,7 +35,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("MarginContainer/ButtonsPanel:modulate")
+tracks/2/path = NodePath("ButtonsMargins/ButtonsPanel:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -78,7 +78,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("MarginContainer:position")
+tracks/1/path = NodePath("ButtonsMargins:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -90,7 +90,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("MarginContainer/ButtonsPanel:modulate")
+tracks/2/path = NodePath("ButtonsMargins/ButtonsPanel:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -126,6 +126,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yf3t6")
@@ -133,7 +135,7 @@ script = ExtResource("1_yf3t6")
 [node name="Vignetting" parent="." instance=ExtResource("2_kdy1f")]
 layout_mode = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="ButtonsMargins" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -145,14 +147,14 @@ theme_override_constants/margin_top = 25
 theme_override_constants/margin_right = 25
 theme_override_constants/margin_bottom = 25
 
-[node name="ButtonsPanel" type="Panel" parent="MarginContainer"]
+[node name="ButtonsPanel" type="Panel" parent="ButtonsMargins"]
 self_modulate = Color(1, 1, 1, 0.380392)
 custom_minimum_size = Vector2(275, 120)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/ButtonsPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="ButtonsMargins/ButtonsPanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -164,43 +166,46 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="ButtonsContainer" type="VBoxContainer" parent="MarginContainer/ButtonsPanel/MarginContainer"]
+[node name="ButtonsContainer" type="VBoxContainer" parent="ButtonsMargins/ButtonsPanel/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="PlayButton" type="Button" parent="MarginContainer/ButtonsPanel/MarginContainer/ButtonsContainer"]
+[node name="PlayButton" type="Button" parent="ButtonsMargins/ButtonsPanel/MarginContainer/ButtonsContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_top = NodePath("../ExitButton")
 focus_neighbor_bottom = NodePath("../SettingsButton")
 focus_next = NodePath("../SettingsButton")
 focus_previous = NodePath("../ExitButton")
+focus_mode = 1
 theme = ExtResource("3_iqjs4")
 text = "PLAY"
 alignment = 0
 language = "en_US"
 
-[node name="SettingsButton" type="Button" parent="MarginContainer/ButtonsPanel/MarginContainer/ButtonsContainer"]
+[node name="SettingsButton" type="Button" parent="ButtonsMargins/ButtonsPanel/MarginContainer/ButtonsContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_top = NodePath("../PlayButton")
 focus_neighbor_bottom = NodePath("../ExitButton")
 focus_next = NodePath("../ExitButton")
 focus_previous = NodePath("../PlayButton")
+focus_mode = 1
 theme = ExtResource("3_iqjs4")
 text = "SETTINGS"
 alignment = 0
 
-[node name="ExitButton" type="Button" parent="MarginContainer/ButtonsPanel/MarginContainer/ButtonsContainer"]
+[node name="ExitButton" type="Button" parent="ButtonsMargins/ButtonsPanel/MarginContainer/ButtonsContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_top = NodePath("../SettingsButton")
 focus_neighbor_bottom = NodePath("../PlayButton")
 focus_next = NodePath("../PlayButton")
 focus_previous = NodePath("../SettingsButton")
+focus_mode = 1
 theme = ExtResource("3_iqjs4")
 text = "EXIT"
 alignment = 0
@@ -234,6 +239,6 @@ libraries = {
 "": SubResource("AnimationLibrary_tfon6")
 }
 
-[connection signal="pressed" from="MarginContainer/ButtonsPanel/MarginContainer/ButtonsContainer/PlayButton" to="." method="_on_play_button_pressed"]
-[connection signal="pressed" from="MarginContainer/ButtonsPanel/MarginContainer/ButtonsContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="MarginContainer/ButtonsPanel/MarginContainer/ButtonsContainer/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="ButtonsMargins/ButtonsPanel/MarginContainer/ButtonsContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="ButtonsMargins/ButtonsPanel/MarginContainer/ButtonsContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="ButtonsMargins/ButtonsPanel/MarginContainer/ButtonsContainer/ExitButton" to="." method="_on_exit_button_pressed"]

@@ -159,9 +159,9 @@ func _physics_process(delta: float):
 	move_and_slide()
 
 func _input(event: InputEvent):
-	if event.is_action_pressed("jump"):
+	if Focus.event_is_action_pressed(event, "jump"):
 		ask_for_jump = true
-	if event.is_action_pressed("dash"):
+	if Focus.event_is_action_pressed(event, "dash"):
 		ask_for_dash = true
 
 #endregion Default overrided methods
@@ -229,7 +229,7 @@ func check_gravity(delta: float):
 
 
 func movement(acceleration: float, delta: float):
-	var direction: float = Input.get_axis("move_left", "move_right")
+	var direction: float = Focus.get_axis("move_left", "move_right")
 	if direction:
 		face_direction = Face.Left if direction < 0 else Face.Right
 		# velocity.x = direction * actual_speed()
