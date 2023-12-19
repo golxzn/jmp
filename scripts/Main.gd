@@ -73,6 +73,9 @@ func _on_play_button_pressed():
 	_setup_camera(current_level.camera)
 	get_tree().paused = false
 
+	# TODO: Make spawn method for player
+	if not current_level.player.is_enabled():
+		current_level.player.spawn()
 
 func _on_exit_button_pressed():
 	await main_menu.hide_menu()
