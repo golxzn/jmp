@@ -21,12 +21,12 @@ class Animations:
 func _ready():
 	_setup_version_label()
 	_set_buttons_disabled(false)
-	play_button.grab_focus()
 
 #region Show / Hide main menu
 
 func show_menu():
 	if animations.is_playing(): await animations.animation_finished
+	play_button.grab_focus()
 	set_process_input(true)
 
 	animations.play(Animations.ShowMainMenu)
@@ -36,7 +36,10 @@ func show_menu():
 
 func hide_menu():
 	if animations.is_playing(): await animations.animation_finished
-	set_process_input(true)
+	play_button.release_focus()
+	settings_button.release_focus()
+	exit_button.release_focus()
+	set_process_input(false)
 
 	_set_buttons_disabled(true)
 	animations.play(Animations.HideMainMenu)
