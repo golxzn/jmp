@@ -26,6 +26,14 @@ func _ready():
 	main_menu.show_menu()
 	await main_menu.main_menu_show_animation_complete
 
+func _input(event: InputEvent) -> void:
+	if Focus.event_is_action_released(event, "ui_pause"):
+		get_tree().paused = !get_tree().paused
+		if get_tree().paused:
+			main_menu.show_menu()
+		else:
+			main_menu.hide_menu()
+
 func _load_last_game():
 	assert(game_default_scene != null, "Cannot found game_default_scene resource file")
 	assert(game_default_scene.can_instantiate(), "Cannot instantiate game_default_scene resource file")
@@ -63,8 +71,8 @@ func _on_play_button_pressed():
 	main_menu.hide_menu()
 
 	_setup_camera(current_level.camera)
-
 	get_tree().paused = false
+
 
 func _on_exit_button_pressed():
 	await main_menu.hide_menu()

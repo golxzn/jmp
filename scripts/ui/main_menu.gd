@@ -27,6 +27,7 @@ func _ready():
 
 func show_menu():
 	if animations.is_playing(): await animations.animation_finished
+	set_process_input(true)
 
 	animations.play(Animations.ShowMainMenu)
 	await animations.animation_finished
@@ -35,6 +36,7 @@ func show_menu():
 
 func hide_menu():
 	if animations.is_playing(): await animations.animation_finished
+	set_process_input(true)
 
 	_set_buttons_disabled(true)
 	animations.play(Animations.HideMainMenu)
