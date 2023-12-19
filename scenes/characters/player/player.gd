@@ -2,7 +2,7 @@ class_name Player extends CharacterBody2D
 
 #region signals
 
-signal player_spawned
+signal player_assembled
 signal player_disabled
 signal player_destroyed
 
@@ -92,7 +92,7 @@ func spawn():
 	animations.play(Animations.Spawn)
 	await animations.animation_finished
 	set_player_state(PlayerState.Enable)
-	player_spawned.emit()
+	player_assembled.emit()
 
 func die():
 	broken_lighting.visible = true

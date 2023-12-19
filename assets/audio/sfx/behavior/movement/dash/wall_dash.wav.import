@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://bw38losyq8xfy"
-path="res://.godot/imported/wall_dash.wav-cecb833dfe20f012ee998fe3fd2d82c0.sample"
+path="res://.godot/imported/wall_dash.wav-fead886d9d03c8c7f6c66f1a0a6fcca0.sample"
 
 [deps]
 
-source_file="res://assets/audio/sfx/movement/wall_dash.wav"
-dest_files=["res://.godot/imported/wall_dash.wav-cecb833dfe20f012ee998fe3fd2d82c0.sample"]
+source_file="res://assets/audio/sfx/behavior/movement/dash/wall_dash.wav"
+dest_files=["res://.godot/imported/wall_dash.wav-fead886d9d03c8c7f6c66f1a0a6fcca0.sample"]
 
 [params]
 

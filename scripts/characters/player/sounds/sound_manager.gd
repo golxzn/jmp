@@ -13,11 +13,9 @@ class_name SoundManager extends Node2D
 @export var wall_jump: AudioStreamPlayer    = null
 
 @export_group("Behaviour sounds")
-@export var die: AudioStreamPlayer         = null
-@export var assembly: AudioStreamPlayer    = null
-@export var disassembly: AudioStreamPlayer = null
-
-@export var player: AudioStreamPlayer = null
+@export var disabling: AudioStreamPlayer = null
+@export var assembling: AudioStreamPlayer = null
+@export var destroying: AudioStreamPlayer = null
 
 enum Playlists{ Jump, Dash }
 
@@ -37,10 +35,6 @@ enum Playlists{ Jump, Dash }
 }
 
 func safe_play(playlist: Dictionary, state: String):
-	if player == null:
-		print_debug("AudioStreamPlayer is not assigned")
-		return
-
 	if state not in playlist:
 		print_debug("Cannot find sound for state '%s'" % state)
 		return
@@ -55,3 +49,15 @@ func _on_player_dash(_player: Player, state: String, _is_last_chance: bool):
 
 func _on_player_jump(_player: Player, state: String, _is_last_chance: bool):
 	safe_play(playlists[Playlists.Jump], state)
+
+
+func _on_player_player_disabled() -> void:
+	if disabling: disabling.play()
+
+
+func _on_player_player_destroyed() -> void:
+	if destroying: destroying.play()
+
+
+func _on_player_player_assembled() -> void:
+	if assembling: assembling.play()

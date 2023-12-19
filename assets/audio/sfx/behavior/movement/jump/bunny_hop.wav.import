@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://cc8bhj7o714y2"
-path="res://.godot/imported/bunny_hop.wav-2e89e581a23a0337dcd5a509f3369f84.sample"
+path="res://.godot/imported/bunny_hop.wav-c55de65f9787b3ff8c2ac339c0b231f2.sample"
 
 [deps]
 
-source_file="res://assets/audio/sfx/movement/bunny_hop.wav"
-dest_files=["res://.godot/imported/bunny_hop.wav-2e89e581a23a0337dcd5a509f3369f84.sample"]
+source_file="res://assets/audio/sfx/behavior/movement/jump/bunny_hop.wav"
+dest_files=["res://.godot/imported/bunny_hop.wav-c55de65f9787b3ff8c2ac339c0b231f2.sample"]
 
 [params]
 

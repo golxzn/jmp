@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://4wb7gqumsfou"
-path="res://.godot/imported/coyote_jump.wav-9c39aa400af9b2b28c86c3488e1bf6b8.sample"
+path="res://.godot/imported/coyote_jump.wav-6a5f14e7ce37435c917ce3407aa1a721.sample"
 
 [deps]
 
-source_file="res://assets/audio/sfx/movement/coyote_jump.wav"
-dest_files=["res://.godot/imported/coyote_jump.wav-9c39aa400af9b2b28c86c3488e1bf6b8.sample"]
+source_file="res://assets/audio/sfx/behavior/movement/jump/coyote_jump.wav"
+dest_files=["res://.godot/imported/coyote_jump.wav-6a5f14e7ce37435c917ce3407aa1a721.sample"]
 
 [params]
 

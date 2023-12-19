@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://pn21407k001m"
-path="res://.godot/imported/coyote_dash.wav-158723365eb4ea0001115242652d9565.sample"
+path="res://.godot/imported/coyote_dash.wav-fd19d4c843b418e89ce4be995e3588dc.sample"
 
 [deps]
 
-source_file="res://assets/audio/sfx/movement/coyote_dash.wav"
-dest_files=["res://.godot/imported/coyote_dash.wav-158723365eb4ea0001115242652d9565.sample"]
+source_file="res://assets/audio/sfx/behavior/movement/dash/coyote_dash.wav"
+dest_files=["res://.godot/imported/coyote_dash.wav-fd19d4c843b418e89ce4be995e3588dc.sample"]
 
 [params]
 
