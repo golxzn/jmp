@@ -25,6 +25,7 @@ UiSoundManager="*res://scenes/managers/ui_sound_manager.tscn"
 
 [display]
 
+window/size/mode=3
 window/size/window_width_override=1728
 window/size/window_height_override=972
 window/stretch/mode="canvas_items"
