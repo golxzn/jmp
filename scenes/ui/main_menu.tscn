@@ -210,6 +210,182 @@ theme = ExtResource("3_iqjs4")
 text = "EXIT"
 alignment = 0
 
+[node name="SettingsMargins [IN_PROGRESS]" type="MarginContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingsMargins [IN_PROGRESS]"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="ButtonsPanel" type="Panel" parent="SettingsMargins [IN_PROGRESS]/HBoxContainer"]
+self_modulate = Color(1, 1, 1, 0.380392)
+custom_minimum_size = Vector2(275, 156)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+
+[node name="MarginContainer" type="MarginContainer" parent="SettingsMargins [IN_PROGRESS]/HBoxContainer/ButtonsPanel"]
+custom_minimum_size = Vector2(275, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 8
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="ButtonsContainer" type="VBoxContainer" parent="SettingsMargins [IN_PROGRESS]/HBoxContainer/ButtonsPanel/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="AudioButton" type="Button" parent="SettingsMargins [IN_PROGRESS]/HBoxContainer/ButtonsPanel/MarginContainer/ButtonsContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../BackButton")
+focus_neighbor_bottom = NodePath("../GraphicsButton")
+focus_next = NodePath("../GraphicsButton")
+focus_previous = NodePath("../BackButton")
+theme = ExtResource("3_iqjs4")
+text = "AUDIO"
+alignment = 0
+language = "en_US"
+
+[node name="GraphicsButton" type="Button" parent="SettingsMargins [IN_PROGRESS]/HBoxContainer/ButtonsPanel/MarginContainer/ButtonsContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../AudioButton")
+focus_neighbor_bottom = NodePath("../InputButton")
+focus_next = NodePath("../InputButton")
+focus_previous = NodePath("../AudioButton")
+theme = ExtResource("3_iqjs4")
+text = "GRAPHICS"
+alignment = 0
+language = "en_US"
+
+[node name="InputButton" type="Button" parent="SettingsMargins [IN_PROGRESS]/HBoxContainer/ButtonsPanel/MarginContainer/ButtonsContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../GraphicsButton")
+focus_neighbor_bottom = NodePath("../BackButton")
+focus_next = NodePath("../BackButton")
+focus_previous = NodePath("../GraphicsButton")
+theme = ExtResource("3_iqjs4")
+text = "INPUT"
+alignment = 0
+language = "en_US"
+
+[node name="BackButton" type="Button" parent="SettingsMargins [IN_PROGRESS]/HBoxContainer/ButtonsPanel/MarginContainer/ButtonsContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../InputButton")
+focus_neighbor_bottom = NodePath("../AudioButton")
+focus_next = NodePath("../AudioButton")
+focus_previous = NodePath("../InputButton")
+theme = ExtResource("3_iqjs4")
+text = "BACK"
+alignment = 0
+language = "en_US"
+
+[node name="SettingsPanel" type="Panel" parent="SettingsMargins [IN_PROGRESS]/HBoxContainer"]
+self_modulate = Color(1, 1, 1, 0.380392)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 10.0
+
+[node name="MarginContainer" type="MarginContainer" parent="SettingsMargins [IN_PROGRESS]/HBoxContainer/SettingsPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="AudioSettingsGrid" type="GridContainer" parent="SettingsMargins [IN_PROGRESS]/HBoxContainer/SettingsPanel/MarginContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/h_separation = 15
+theme_override_constants/v_separation = 10
+columns = 2
+
+[node name="MusicLabel" type="Label" parent="SettingsMargins [IN_PROGRESS]/HBoxContainer/SettingsPanel/MarginContainer/AudioSettingsGrid"]
+layout_mode = 2
+theme = ExtResource("3_iqjs4")
+text = "MUSIC:"
+
+[node name="MusicSlider" type="HSlider" parent="SettingsMargins [IN_PROGRESS]/HBoxContainer/SettingsPanel/MarginContainer/AudioSettingsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="SFXLabel" type="Label" parent="SettingsMargins [IN_PROGRESS]/HBoxContainer/SettingsPanel/MarginContainer/AudioSettingsGrid"]
+layout_mode = 2
+theme = ExtResource("3_iqjs4")
+text = "SOUND EFFECTS:"
+
+[node name="SFXSlider" type="HSlider" parent="SettingsMargins [IN_PROGRESS]/HBoxContainer/SettingsPanel/MarginContainer/AudioSettingsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="GraphicsSettingsGrid" type="GridContainer" parent="SettingsMargins [IN_PROGRESS]/HBoxContainer/SettingsPanel/MarginContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/h_separation = 15
+theme_override_constants/v_separation = 10
+columns = 2
+
+[node name="FullscreanLabel" type="Label" parent="SettingsMargins [IN_PROGRESS]/HBoxContainer/SettingsPanel/MarginContainer/GraphicsSettingsGrid"]
+layout_mode = 2
+theme = ExtResource("3_iqjs4")
+text = "FULLSCREEN:"
+
+[node name="FullscreenButton" type="CheckButton" parent="SettingsMargins [IN_PROGRESS]/HBoxContainer/SettingsPanel/MarginContainer/GraphicsSettingsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="InputSettingsGrid" type="GridContainer" parent="SettingsMargins [IN_PROGRESS]/HBoxContainer/SettingsPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 15
+theme_override_constants/v_separation = 10
+columns = 2
+
+[node name="SensitivityLabel" type="Label" parent="SettingsMargins [IN_PROGRESS]/HBoxContainer/SettingsPanel/MarginContainer/InputSettingsGrid"]
+layout_mode = 2
+theme = ExtResource("3_iqjs4")
+text = "SENSITIVITY:"
+
+[node name="MusicSlider" type="HSlider" parent="SettingsMargins [IN_PROGRESS]/HBoxContainer/SettingsPanel/MarginContainer/InputSettingsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.05
+value = 1.0
+
 [node name="VersionMargins" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 3
