@@ -159,10 +159,8 @@ func _physics_process(delta: float):
 	move_and_slide()
 
 func _input(event: InputEvent):
-	if Focus.event_is_action_pressed(event, "jump"):
-		ask_for_jump = true
-	if Focus.event_is_action_pressed(event, "dash"):
-		ask_for_dash = true
+	if Focus.event_is_action_pressed(event, "jump"): ask_for_jump = true
+	if Focus.event_is_action_pressed(event, "dash"): ask_for_dash = true
 
 #endregion Default overrided methods
 

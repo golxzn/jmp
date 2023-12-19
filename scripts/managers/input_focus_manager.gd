@@ -24,7 +24,7 @@ func input_is_action_just_released(action: StringName) -> bool:
 	return false
 
 func event_is_action_pressed(event: InputEvent, action: StringName) -> bool:
-	if focused: return event.is_action_released(action)
+	if focused: return event.is_action_pressed(action)
 	return false
 
 func event_is_action_released(event: InputEvent, action: StringName) -> bool:
