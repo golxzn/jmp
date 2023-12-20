@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://bs3d5i8crch84"]
+[gd_scene load_steps=34 format=3 uid="uid://bs3d5i8crch84"]
 
 [ext_resource type="Texture2D" uid="uid://bwn7ygyb0odym" path="res://assets/images/textures/cubes/cube.png" id="1_kmqy5"]
 [ext_resource type="Script" path="res://scenes/characters/player/player.gd" id="1_mfave"]
@@ -14,7 +14,6 @@
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="7_2mu1g"]
 [ext_resource type="Script" path="res://scripts/characters/player/sounds/sound_manager.gd" id="7_shnfj"]
 [ext_resource type="AudioStream" uid="uid://e2lx04mmn2fx" path="res://assets/audio/sfx/behavior/movement/dash/dash.wav" id="8_xcwp1"]
-[ext_resource type="AudioStream" uid="uid://pn21407k001m" path="res://assets/audio/sfx/behavior/movement/dash/coyote_dash.wav" id="9_1ilw5"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/parallel_state.gd" id="10_3q06q"]
 [ext_resource type="AudioStream" uid="uid://djx80hk3muw1f" path="res://assets/audio/sfx/behavior/movement/dash/midair_dash.wav" id="10_635kx"]
 [ext_resource type="AudioStream" uid="uid://bw38losyq8xfy" path="res://assets/audio/sfx/behavior/movement/dash/wall_dash.wav" id="11_i6b7g"]
@@ -207,7 +206,7 @@ stream = ExtResource("8_xcwp1")
 bus = &"player_movement"
 
 [node name="Coyote" type="AudioStreamPlayer" parent="SoundManager/Movement/Dash"]
-stream = ExtResource("9_1ilw5")
+stream = ExtResource("10_635kx")
 bus = &"player_movement"
 
 [node name="MidAir" type="AudioStreamPlayer" parent="SoundManager/Movement/Dash"]
