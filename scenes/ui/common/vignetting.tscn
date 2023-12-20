@@ -1,41 +1,13 @@
 [gd_scene load_steps=7 format=3 uid="uid://cci83napmkv6b"]
 
 [ext_resource type="Shader" path="res://assets/shaders/vignetting.gdshader" id="1_k34x2"]
+[ext_resource type="Script" path="res://scripts/ui/common/vignetting.gd" id="2_uxx4g"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ak5qj"]
 shader = ExtResource("1_k34x2")
 shader_parameter/vignette_intensity = 0.185
 shader_parameter/vignette_opacity = 0.5
 shader_parameter/vignette_rgb = Color(0, 0, 0, 1)
-
-[sub_resource type="GDScript" id="GDScript_87qfr"]
-script/source = "class_name Vingetting extends ColorRect
-
-signal vignetting_appearing_start
-signal vignetting_appearing_finish
-
-signal vignetting_disappearing_start
-signal vignetting_disappearing_finish
-
-class Animations:
-	const Appearing: String    = \"vignetting_appearing\"
-	const Disappearing: String = \"vignetting_disappearing\"
-
-@onready var animations: AnimationPlayer = $AnimationPlayer
-
-func appear():
-	vignetting_appearing_start.emit()
-	animations.play(Animations.Appearing)
-	await animations.animation_finished
-	vignetting_appearing_finish.emit()
-
-func disappear():
-	vignetting_disappearing_start.emit()
-	animations.play(Animations.Disappearing)
-	await animations.animation_finished
-	vignetting_disappearing_start.emit()
-
-"
 
 [sub_resource type="Animation" id="Animation_ckxo4"]
 resource_name = "vignetting_appearing"
@@ -132,7 +104,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = SubResource("GDScript_87qfr")
+script = ExtResource("2_uxx4g")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

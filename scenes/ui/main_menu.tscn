@@ -1,66 +1,267 @@
-[gd_scene load_steps=7 format=3 uid="uid://dlxerxs6n2ubl"]
+[gd_scene load_steps=40 format=3 uid="uid://dlxerxs6n2ubl"]
 
 [ext_resource type="Script" path="res://scripts/ui/main_menu.gd" id="1_yf3t6"]
 [ext_resource type="PackedScene" uid="uid://cci83napmkv6b" path="res://scenes/ui/common/vignetting.tscn" id="2_kdy1f"]
 [ext_resource type="Theme" uid="uid://bgce087pako3h" path="res://assets/themes/interface/default.tres" id="3_iqjs4"]
+[ext_resource type="Script" path="res://scripts/ui/settings.gd" id="4_ypi17"]
+[ext_resource type="Script" path="res://scripts/ui/settings/AudioSettingsGrid.gd" id="5_ijqia"]
+[ext_resource type="Script" path="res://scripts/ui/settings/GraphicsSettingsGrid.gd" id="6_aqr0q"]
 
-[sub_resource type="Animation" id="Animation_dan53"]
-resource_name = "hide_menu"
+[sub_resource type="Animation" id="Animation_vhldp"]
+resource_name = "call_vignetting_appear"
+length = 0.2
+step = 0.01
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VignettingEffect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": ["appear"],
+"method": &"call_deferred"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_2fmet"]
+resource_name = "call_vignetting_disappear"
+length = 0.2
+step = 0.01
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VignettingEffect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": ["disappear"],
+"method": &"call_deferred"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_5mskt"]
+resource_name = "main_menu_buttons_hide"
 length = 0.2
 step = 0.01
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("VersionMargins:modulate")
+tracks/0/path = NodePath("ButtonsMargins:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("ButtonsMargins:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(-325, 0)]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("ButtonsMargins/ButtonsPanel:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ButtonsMargins/ButtonsPanel:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Vignetting")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ButtonsMargins:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.2),
 "transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"disappear"
-}]
+"update": 1,
+"values": [false]
 }
 
-[sub_resource type="Animation" id="Animation_j35yq"]
-resource_name = "show_menu"
+[sub_resource type="Animation" id="Animation_gi8cq"]
+resource_name = "main_menu_buttons_show"
+length = 0.2
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ButtonsMargins:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-325, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ButtonsMargins/ButtonsPanel:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ButtonsMargins:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_1bin5"]
+resource_name = "settings_buttons_hide"
+length = 0.25
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Settings/ButtonsMargins:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-335, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Settings/ButtonsMargins:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.25),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_d10bd"]
+resource_name = "settings_buttons_show"
+length = 0.25
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Settings/ButtonsMargins:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-335, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Settings/ButtonsMargins:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_8868b"]
+resource_name = "settings_panel_hide"
+length = 0.25
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Settings/ExplorerMargins:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(322, 0), Vector2(1177, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Settings/ExplorerMargins:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.25),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_nok7c"]
+resource_name = "settings_panel_show"
+length = 0.25
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Settings/ExplorerMargins:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1177, 0), Vector2(322, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Settings/ExplorerMargins:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_gk04r"]
+resource_name = "version_label_hide"
+length = 0.2
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VersionMargins:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_tk4ye"]
+resource_name = "version_label_show"
 length = 0.2
 step = 0.01
 tracks/0/type = "value"
@@ -75,50 +276,121 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("ButtonsMargins:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(-325, 0), Vector2(0, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("ButtonsMargins/ButtonsPanel:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Vignetting")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"appear"
-}]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tfon6"]
 _data = {
-"hide_menu": SubResource("Animation_dan53"),
-"show_menu": SubResource("Animation_j35yq")
+"call_vignetting_appear": SubResource("Animation_vhldp"),
+"call_vignetting_disappear": SubResource("Animation_2fmet"),
+"main_menu_buttons_hide": SubResource("Animation_5mskt"),
+"main_menu_buttons_show": SubResource("Animation_gi8cq"),
+"settings_buttons_hide": SubResource("Animation_1bin5"),
+"settings_buttons_show": SubResource("Animation_d10bd"),
+"settings_panel_hide": SubResource("Animation_8868b"),
+"settings_panel_show": SubResource("Animation_nok7c"),
+"version_label_hide": SubResource("Animation_gk04r"),
+"version_label_show": SubResource("Animation_tk4ye")
 }
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_8pv64"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ehqa1"]
+animation = &"version_label_hide"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rkqym"]
+animation = &"main_menu_buttons_hide"
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_uwrye"]
+graph_offset = Vector2(-688, 25)
+nodes/Add2/node = SubResource("AnimationNodeAdd2_8pv64")
+nodes/Add2/position = Vector2(40, 120)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_rkqym")
+nodes/Animation/position = Vector2(-280, 100)
+"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_ehqa1")
+"nodes/Animation 2/position" = Vector2(-228.06, 238.651)
+node_connections = [&"Add2", 0, &"Animation", &"Add2", 1, &"Animation 2", &"output", 0, &"Add2"]
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_3bxra"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qxn3t"]
+animation = &"settings_panel_hide"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1nc00"]
+animation = &"settings_buttons_hide"
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_q0eik"]
+graph_offset = Vector2(-628, 55)
+nodes/Add2/node = SubResource("AnimationNodeAdd2_3bxra")
+nodes/Add2/position = Vector2(100, 160)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_1nc00")
+nodes/Animation/position = Vector2(-200, 120)
+"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_qxn3t")
+"nodes/Animation 2/position" = Vector2(-200, 260)
+node_connections = [&"Add2", 0, &"Animation", &"Add2", 1, &"Animation 2", &"output", 0, &"Add2"]
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_cx316"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mqi6h"]
+animation = &"version_label_show"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fx2wu"]
+animation = &"main_menu_buttons_show"
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_xyfq8"]
+graph_offset = Vector2(-681.987, 50.1931)
+nodes/Add2/node = SubResource("AnimationNodeAdd2_cx316")
+nodes/Add2/position = Vector2(20, 140)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_fx2wu")
+nodes/Animation/position = Vector2(-340, 100)
+"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_mqi6h")
+"nodes/Animation 2/position" = Vector2(-280, 240)
+node_connections = [&"Add2", 0, &"Animation", &"Add2", 1, &"Animation 2", &"output", 0, &"Add2"]
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_o5jvu"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dtdtg"]
+animation = &"settings_panel_show"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_w8q2d"]
+animation = &"settings_buttons_show"
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_15y2t"]
+graph_offset = Vector2(-597, 32)
+nodes/Add2/node = SubResource("AnimationNodeAdd2_o5jvu")
+nodes/Add2/position = Vector2(60, 120)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_w8q2d")
+nodes/Animation/position = Vector2(-245.711, 84.0219)
+"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_dtdtg")
+"nodes/Animation 2/position" = Vector2(-240, 220)
+node_connections = [&"Add2", 0, &"Animation", &"Add2", 1, &"Animation 2", &"output", 0, &"Add2"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_34co5"]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0vs7l"]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gey3d"]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_51qqj"]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_h244f"]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_131w1"]
+states/End/position = Vector2(742, 100)
+states/Start/position = Vector2(83, 100)
+states/hide_main/node = SubResource("AnimationNodeBlendTree_uwrye")
+states/hide_main/position = Vector2(534, 151)
+states/hide_settings/node = SubResource("AnimationNodeBlendTree_q0eik")
+states/hide_settings/position = Vector2(299, 40)
+states/show_main/node = SubResource("AnimationNodeBlendTree_xyfq8")
+states/show_main/position = Vector2(299, 151)
+states/show_settings/node = SubResource("AnimationNodeBlendTree_15y2t")
+states/show_settings/position = Vector2(534, 40)
+transitions = ["show_main", "hide_main", SubResource("AnimationNodeStateMachineTransition_34co5"), "hide_settings", "show_main", SubResource("AnimationNodeStateMachineTransition_0vs7l"), "show_settings", "hide_settings", SubResource("AnimationNodeStateMachineTransition_gey3d"), "hide_main", "show_settings", SubResource("AnimationNodeStateMachineTransition_51qqj"), "hide_main", "show_main", SubResource("AnimationNodeStateMachineTransition_h244f")]
+graph_offset = Vector2(-229, 39)
 
 [node name="MainMenu" type="Control"]
 process_mode = 3
@@ -130,10 +402,14 @@ offset_top = 1.0
 offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("3_iqjs4")
 script = ExtResource("1_yf3t6")
 
-[node name="Vignetting" parent="." instance=ExtResource("2_kdy1f")]
+[node name="VignettingEffect" parent="." instance=ExtResource("2_kdy1f")]
+unique_name_in_owner = true
 layout_mode = 1
+mouse_filter = 1
+theme = ExtResource("3_iqjs4")
 
 [node name="ButtonsMargins" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -142,17 +418,20 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("3_iqjs4")
 theme_override_constants/margin_left = 25
 theme_override_constants/margin_top = 25
 theme_override_constants/margin_right = 25
 theme_override_constants/margin_bottom = 25
 
 [node name="ButtonsPanel" type="Panel" parent="ButtonsMargins"]
+modulate = Color(0, 0, 0, 1)
 self_modulate = Color(1, 1, 1, 0.380392)
 custom_minimum_size = Vector2(275, 120)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
+theme = ExtResource("3_iqjs4")
 
 [node name="MarginContainer" type="MarginContainer" parent="ButtonsMargins/ButtonsPanel"]
 layout_mode = 1
@@ -161,6 +440,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("3_iqjs4")
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
@@ -170,6 +450,7 @@ theme_override_constants/margin_bottom = 5
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = ExtResource("3_iqjs4")
 theme_override_constants/separation = 10
 alignment = 1
 
@@ -210,31 +491,39 @@ theme = ExtResource("3_iqjs4")
 text = "EXIT"
 alignment = 0
 
-[node name="SettingsMargins [IN_PROGRESS]" type="MarginContainer" parent="."]
-visible = false
+[node name="Settings" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("3_iqjs4")
+script = ExtResource("4_ypi17")
+
+[node name="ButtonsMargins" type="MarginContainer" parent="Settings"]
+visible = false
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 305.0
+grow_vertical = 2
+theme = ExtResource("3_iqjs4")
 theme_override_constants/margin_left = 25
 theme_override_constants/margin_top = 25
-theme_override_constants/margin_right = 25
+theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 25
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SettingsMargins [IN_PROGRESS]"]
-layout_mode = 2
-theme_override_constants/separation = 15
-
-[node name="ButtonsPanel" type="Panel" parent="SettingsMargins [IN_PROGRESS]/HBoxContainer"]
+[node name="ButtonsPanel" type="Panel" parent="Settings/ButtonsMargins"]
 self_modulate = Color(1, 1, 1, 0.380392)
 custom_minimum_size = Vector2(275, 156)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 8
+theme = ExtResource("3_iqjs4")
 
-[node name="MarginContainer" type="MarginContainer" parent="SettingsMargins [IN_PROGRESS]/HBoxContainer/ButtonsPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="Settings/ButtonsMargins/ButtonsPanel"]
 custom_minimum_size = Vector2(275, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -248,14 +537,15 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="ButtonsContainer" type="VBoxContainer" parent="SettingsMargins [IN_PROGRESS]/HBoxContainer/ButtonsPanel/MarginContainer"]
+[node name="ButtonsContainer" type="VBoxContainer" parent="Settings/ButtonsMargins/ButtonsPanel/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="AudioButton" type="Button" parent="SettingsMargins [IN_PROGRESS]/HBoxContainer/ButtonsPanel/MarginContainer/ButtonsContainer"]
+[node name="AudioButton" type="Button" parent="Settings/ButtonsMargins/ButtonsPanel/MarginContainer/ButtonsContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_top = NodePath("../BackButton")
 focus_neighbor_bottom = NodePath("../GraphicsButton")
@@ -266,7 +556,8 @@ text = "AUDIO"
 alignment = 0
 language = "en_US"
 
-[node name="GraphicsButton" type="Button" parent="SettingsMargins [IN_PROGRESS]/HBoxContainer/ButtonsPanel/MarginContainer/ButtonsContainer"]
+[node name="GraphicsButton" type="Button" parent="Settings/ButtonsMargins/ButtonsPanel/MarginContainer/ButtonsContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_top = NodePath("../AudioButton")
 focus_neighbor_bottom = NodePath("../InputButton")
@@ -277,18 +568,21 @@ text = "GRAPHICS"
 alignment = 0
 language = "en_US"
 
-[node name="InputButton" type="Button" parent="SettingsMargins [IN_PROGRESS]/HBoxContainer/ButtonsPanel/MarginContainer/ButtonsContainer"]
+[node name="InputButton" type="Button" parent="Settings/ButtonsMargins/ButtonsPanel/MarginContainer/ButtonsContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_top = NodePath("../GraphicsButton")
 focus_neighbor_bottom = NodePath("../BackButton")
 focus_next = NodePath("../BackButton")
 focus_previous = NodePath("../GraphicsButton")
 theme = ExtResource("3_iqjs4")
+disabled = true
 text = "INPUT"
 alignment = 0
 language = "en_US"
 
-[node name="BackButton" type="Button" parent="SettingsMargins [IN_PROGRESS]/HBoxContainer/ButtonsPanel/MarginContainer/ButtonsContainer"]
+[node name="BackButton" type="Button" parent="Settings/ButtonsMargins/ButtonsPanel/MarginContainer/ButtonsContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_top = NodePath("../InputButton")
 focus_neighbor_bottom = NodePath("../AudioButton")
@@ -299,86 +593,179 @@ text = "BACK"
 alignment = 0
 language = "en_US"
 
-[node name="SettingsPanel" type="Panel" parent="SettingsMargins [IN_PROGRESS]/HBoxContainer"]
+[node name="ExplorerMargins" type="MarginContainer" parent="Settings"]
+visible = false
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1152.0
+offset_right = -321.996
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("3_iqjs4")
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="ExplorerPanel" type="Panel" parent="Settings/ExplorerMargins"]
 self_modulate = Color(1, 1, 1, 0.380392)
+custom_minimum_size = Vector2(800, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 10.0
+theme = ExtResource("3_iqjs4")
 
-[node name="MarginContainer" type="MarginContainer" parent="SettingsMargins [IN_PROGRESS]/HBoxContainer/SettingsPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="Settings/ExplorerMargins/ExplorerPanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("3_iqjs4")
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 15
 
-[node name="AudioSettingsGrid" type="GridContainer" parent="SettingsMargins [IN_PROGRESS]/HBoxContainer/SettingsPanel/MarginContainer"]
-visible = false
+[node name="AudioSettingsGrid" type="GridContainer" parent="Settings/ExplorerMargins/ExplorerPanel/MarginContainer"]
+unique_name_in_owner = true
 layout_mode = 2
+theme = ExtResource("3_iqjs4")
 theme_override_constants/h_separation = 15
 theme_override_constants/v_separation = 10
-columns = 2
+columns = 3
+script = ExtResource("5_ijqia")
 
-[node name="MusicLabel" type="Label" parent="SettingsMargins [IN_PROGRESS]/HBoxContainer/SettingsPanel/MarginContainer/AudioSettingsGrid"]
+[node name="MusicLabel" type="Label" parent="Settings/ExplorerMargins/ExplorerPanel/MarginContainer/AudioSettingsGrid"]
 layout_mode = 2
 theme = ExtResource("3_iqjs4")
 text = "MUSIC:"
 
-[node name="MusicSlider" type="HSlider" parent="SettingsMargins [IN_PROGRESS]/HBoxContainer/SettingsPanel/MarginContainer/AudioSettingsGrid"]
+[node name="MusicSlider" type="HSlider" parent="Settings/ExplorerMargins/ExplorerPanel/MarginContainer/AudioSettingsGrid"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+theme = ExtResource("3_iqjs4")
 max_value = 1.0
 step = 0.05
 value = 1.0
 
-[node name="SFXLabel" type="Label" parent="SettingsMargins [IN_PROGRESS]/HBoxContainer/SettingsPanel/MarginContainer/AudioSettingsGrid"]
+[node name="MusicSliderValue" type="Label" parent="Settings/ExplorerMargins/ExplorerPanel/MarginContainer/AudioSettingsGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(36, 0)
+layout_mode = 2
+theme = ExtResource("3_iqjs4")
+text = "100%"
+
+[node name="SoundEffectsTitle" type="Label" parent="Settings/ExplorerMargins/ExplorerPanel/MarginContainer/AudioSettingsGrid"]
 layout_mode = 2
 theme = ExtResource("3_iqjs4")
 text = "SOUND EFFECTS:"
 
-[node name="SFXSlider" type="HSlider" parent="SettingsMargins [IN_PROGRESS]/HBoxContainer/SettingsPanel/MarginContainer/AudioSettingsGrid"]
+[node name="Control" type="Control" parent="Settings/ExplorerMargins/ExplorerPanel/MarginContainer/AudioSettingsGrid"]
+layout_mode = 2
+theme = ExtResource("3_iqjs4")
+
+[node name="Control2" type="Control" parent="Settings/ExplorerMargins/ExplorerPanel/MarginContainer/AudioSettingsGrid"]
+layout_mode = 2
+theme = ExtResource("3_iqjs4")
+
+[node name="PlayerSFXLabel" type="Label" parent="Settings/ExplorerMargins/ExplorerPanel/MarginContainer/AudioSettingsGrid"]
+layout_mode = 2
+theme = ExtResource("3_iqjs4")
+text = "    PLAYER:"
+
+[node name="PlayerSFXSlider" type="HSlider" parent="Settings/ExplorerMargins/ExplorerPanel/MarginContainer/AudioSettingsGrid"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+theme = ExtResource("3_iqjs4")
 max_value = 1.0
 step = 0.05
 value = 1.0
 
-[node name="GraphicsSettingsGrid" type="GridContainer" parent="SettingsMargins [IN_PROGRESS]/HBoxContainer/SettingsPanel/MarginContainer"]
-visible = false
-layout_mode = 2
-theme_override_constants/h_separation = 15
-theme_override_constants/v_separation = 10
-columns = 2
-
-[node name="FullscreanLabel" type="Label" parent="SettingsMargins [IN_PROGRESS]/HBoxContainer/SettingsPanel/MarginContainer/GraphicsSettingsGrid"]
+[node name="PlayerSFXValue" type="Label" parent="Settings/ExplorerMargins/ExplorerPanel/MarginContainer/AudioSettingsGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(36, 0)
 layout_mode = 2
 theme = ExtResource("3_iqjs4")
-text = "FULLSCREEN:"
+text = "100%"
 
-[node name="FullscreenButton" type="CheckButton" parent="SettingsMargins [IN_PROGRESS]/HBoxContainer/SettingsPanel/MarginContainer/GraphicsSettingsGrid"]
+[node name="EnvironmentSFXLabel" type="Label" parent="Settings/ExplorerMargins/ExplorerPanel/MarginContainer/AudioSettingsGrid"]
+layout_mode = 2
+theme = ExtResource("3_iqjs4")
+text = "    ENVIRONMENT:"
+
+[node name="EnvironmentSFXSlider" type="HSlider" parent="Settings/ExplorerMargins/ExplorerPanel/MarginContainer/AudioSettingsGrid"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+theme = ExtResource("3_iqjs4")
+max_value = 1.0
+step = 0.05
+value = 1.0
 
-[node name="InputSettingsGrid" type="GridContainer" parent="SettingsMargins [IN_PROGRESS]/HBoxContainer/SettingsPanel/MarginContainer"]
+[node name="EnvironmentSFXValue" type="Label" parent="Settings/ExplorerMargins/ExplorerPanel/MarginContainer/AudioSettingsGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(36, 0)
 layout_mode = 2
+theme = ExtResource("3_iqjs4")
+text = "100%"
+
+[node name="InterfaceSFXLabel" type="Label" parent="Settings/ExplorerMargins/ExplorerPanel/MarginContainer/AudioSettingsGrid"]
+layout_mode = 2
+theme = ExtResource("3_iqjs4")
+text = "    INTERFACE:"
+
+[node name="InterfaceSFXSlider" type="HSlider" parent="Settings/ExplorerMargins/ExplorerPanel/MarginContainer/AudioSettingsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme = ExtResource("3_iqjs4")
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="InterfaceSFXValue" type="Label" parent="Settings/ExplorerMargins/ExplorerPanel/MarginContainer/AudioSettingsGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(36, 0)
+layout_mode = 2
+theme = ExtResource("3_iqjs4")
+text = "100%"
+
+[node name="GraphicsSettingsGrid" type="GridContainer" parent="Settings/ExplorerMargins/ExplorerPanel/MarginContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme = ExtResource("3_iqjs4")
+script = ExtResource("6_aqr0q")
+
+[node name="FullscreenButton" type="CheckButton" parent="Settings/ExplorerMargins/ExplorerPanel/MarginContainer/GraphicsSettingsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme = ExtResource("3_iqjs4")
+text = "FULLSCREEN:"
+
+[node name="InputSettingsGrid" type="GridContainer" parent="Settings/ExplorerMargins/ExplorerPanel/MarginContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme = ExtResource("3_iqjs4")
 theme_override_constants/h_separation = 15
 theme_override_constants/v_separation = 10
 columns = 2
 
-[node name="SensitivityLabel" type="Label" parent="SettingsMargins [IN_PROGRESS]/HBoxContainer/SettingsPanel/MarginContainer/InputSettingsGrid"]
+[node name="SensitivityLabel" type="Label" parent="Settings/ExplorerMargins/ExplorerPanel/MarginContainer/InputSettingsGrid"]
 layout_mode = 2
 theme = ExtResource("3_iqjs4")
 text = "SENSITIVITY:"
 
-[node name="MusicSlider" type="HSlider" parent="SettingsMargins [IN_PROGRESS]/HBoxContainer/SettingsPanel/MarginContainer/InputSettingsGrid"]
+[node name="MusicSlider" type="HSlider" parent="Settings/ExplorerMargins/ExplorerPanel/MarginContainer/InputSettingsGrid"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -387,6 +774,7 @@ step = 0.05
 value = 1.0
 
 [node name="VersionMargins" type="MarginContainer" parent="."]
+modulate = Color(0, 0, 0, 1)
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -397,6 +785,7 @@ offset_left = -77.0
 offset_top = -26.0
 grow_horizontal = 0
 grow_vertical = 0
+theme = ExtResource("3_iqjs4")
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 5
@@ -415,6 +804,28 @@ libraries = {
 "": SubResource("AnimationLibrary_tfon6")
 }
 
+[node name="AnimationTree" type="AnimationTree" parent="."]
+unique_name_in_owner = true
+root_node = NodePath("%AnimationTree/..")
+libraries = {
+"": SubResource("AnimationLibrary_tfon6")
+}
+tree_root = SubResource("AnimationNodeStateMachine_131w1")
+anim_player = NodePath("../AnimationPlayer")
+parameters/hide_main/Add2/add_amount = 1.0
+parameters/hide_settings/Add2/add_amount = 1.0
+parameters/show_main/Add2/add_amount = 1.0
+parameters/show_settings/Add2/add_amount = 1.0
+
 [connection signal="pressed" from="ButtonsMargins/ButtonsPanel/MarginContainer/ButtonsContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="ButtonsMargins/ButtonsPanel/MarginContainer/ButtonsContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="ButtonsMargins/ButtonsPanel/MarginContainer/ButtonsContainer/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="Settings/ButtonsMargins/ButtonsPanel/MarginContainer/ButtonsContainer/AudioButton" to="." method="_on_audio_button_pressed"]
+[connection signal="pressed" from="Settings/ButtonsMargins/ButtonsPanel/MarginContainer/ButtonsContainer/GraphicsButton" to="." method="_on_graphics_button_pressed"]
+[connection signal="pressed" from="Settings/ButtonsMargins/ButtonsPanel/MarginContainer/ButtonsContainer/InputButton" to="." method="_on_input_button_pressed"]
+[connection signal="pressed" from="Settings/ButtonsMargins/ButtonsPanel/MarginContainer/ButtonsContainer/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="value_changed" from="Settings/ExplorerMargins/ExplorerPanel/MarginContainer/AudioSettingsGrid/MusicSlider" to="Settings/ExplorerMargins/ExplorerPanel/MarginContainer/AudioSettingsGrid" method="_on_music_slider_value_changed"]
+[connection signal="value_changed" from="Settings/ExplorerMargins/ExplorerPanel/MarginContainer/AudioSettingsGrid/PlayerSFXSlider" to="Settings/ExplorerMargins/ExplorerPanel/MarginContainer/AudioSettingsGrid" method="_on_player_sfx_slider_value_changed"]
+[connection signal="value_changed" from="Settings/ExplorerMargins/ExplorerPanel/MarginContainer/AudioSettingsGrid/EnvironmentSFXSlider" to="Settings/ExplorerMargins/ExplorerPanel/MarginContainer/AudioSettingsGrid" method="_on_environment_sfx_slider_value_changed"]
+[connection signal="value_changed" from="Settings/ExplorerMargins/ExplorerPanel/MarginContainer/AudioSettingsGrid/InterfaceSFXSlider" to="Settings/ExplorerMargins/ExplorerPanel/MarginContainer/AudioSettingsGrid" method="_on_interface_sfx_slider_value_changed"]
+[connection signal="toggled" from="Settings/ExplorerMargins/ExplorerPanel/MarginContainer/GraphicsSettingsGrid/FullscreenButton" to="Settings/ExplorerMargins/ExplorerPanel/MarginContainer/GraphicsSettingsGrid" method="_on_fullscreen_button_toggled"]

@@ -14,6 +14,7 @@ var current_level: Level = null
 var main_menu: MainMenu = null
 
 func _ready():
+	# ProjectSettings.save_custom("user://settings.binary")
 	# assert(main_menu_place != null, "Cannot found main_menu_place node")
 	assert(game_place != null, "Cannot found game_place node")
 
@@ -32,7 +33,7 @@ func _input(event: InputEvent) -> void:
 		if get_tree().paused:
 			main_menu.show_menu()
 		else:
-			main_menu.hide_menu()
+			main_menu.exit_menu()
 
 func _load_last_game():
 	assert(game_default_scene != null, "Cannot found game_default_scene resource file")
@@ -68,7 +69,7 @@ func _setup_camera(camera: Camera2D):
 
 
 func _on_play_button_pressed():
-	main_menu.hide_menu()
+	main_menu.exit_menu()
 
 	_setup_camera(current_level.camera)
 	get_tree().paused = false
@@ -78,5 +79,5 @@ func _on_play_button_pressed():
 		current_level.player.spawn()
 
 func _on_exit_button_pressed():
-	await main_menu.hide_menu()
+	await main_menu.exit_menu()
 	get_tree().quit()
