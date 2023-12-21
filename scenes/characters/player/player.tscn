@@ -133,7 +133,7 @@ func _update_debug_label():
 	]
 "
 
-[node name="player" type="CharacterBody2D"]
+[node name="player" type="CharacterBody2D" groups=["teleportable"]]
 process_mode = 1
 collision_mask = 3
 safe_margin = 0.1

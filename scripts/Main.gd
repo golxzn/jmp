@@ -52,11 +52,10 @@ func _load_last_game():
 	assert(game_default_scene != null, "Cannot found game_default_scene resource file")
 	assert(game_default_scene.can_instantiate(), "Cannot instantiate game_default_scene resource file")
 
-	var scene: Level = game_default_scene.instantiate()
-	assert(scene != null, "Cannot instantiate game_default_scene resource file. Scene type is %s" % typeof(scene))
-	game_place.add_child(scene)
+	current_level = game_default_scene.instantiate()
+	assert(current_level != null, "Cannot instantiate game_default_scene resource file. Scene type is %s" % current_level)
+	game_place.add_child(current_level)
 
-	current_level = scene
 
 func _load_main_menu():
 	assert(main_menu_scene != null, "Cannot found main_menu_scene resource file")
@@ -77,9 +76,6 @@ func _setup_camera(camera: Camera2D):
 
 	camera.enabled = true
 	camera.make_current()
-	if camera:
-		current_level.player.remote_transform.remote_path = camera.get_path()
-
 
 func _on_play_button_pressed():
 	main_menu.exit_menu()
@@ -87,9 +83,6 @@ func _on_play_button_pressed():
 	_setup_camera(current_level.camera)
 	get_tree().paused = false
 
-	# TODO: Make spawn method for player
-	if not current_level.player.is_enabled():
-		current_level.player.spawn()
 
 func _on_exit_button_pressed():
 	get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)

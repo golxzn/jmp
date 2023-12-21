@@ -65,7 +65,6 @@ class Animations:
 @onready var climbing_timer: ClimbingTimer = $Timers/ClimbingTimer
 
 @onready var ray_to_bottom: RayCast2D = $PlayerCollision/RayToBottom
-@onready var remote_transform: RemoteTransform2D = $RemoteTransform2D
 @onready var state_chart: StateChart = $StateChart
 
 @onready var animations: AnimationPlayer = $AnimationPlayer
@@ -141,6 +140,8 @@ func _ready():
 	climbing_timer.timeout.connect(self._on_climbing_timer_timeout)
 	dashing_timer.timeout.connect(self._on_dashing_timer_timeout)
 	coyote_timer.timeout.connect(self._on_coyote_timer_timeout)
+
+	spawn()
 
 func _process(_delta: float):
 	state_chart.set_expression_property("is_moving", is_moving())
@@ -238,8 +239,11 @@ func movement(acceleration: float, delta: float):
 #region Collision callbacks
 
 func _on_hit_box_body_entered(body: Node2D):
+	# TODO: Make it more universal. Body has to be able to tell us what to do or kinda
 	print("On hit box body entered: ", str(body))
 	die()
+	await get_tree().create_timer(1.5).timeout
+	destroy()
 
 #endregion Collision callbacks
 
