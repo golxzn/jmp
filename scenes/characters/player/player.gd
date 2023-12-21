@@ -154,8 +154,6 @@ func _physics_process(delta: float):
 	if is_disabled() and velocity.x:
 		velocity.x = move_toward(velocity.x, 0, accelerations[PlacemantState.Ground] * delta)
 
-	velocity = velocity.limit_length(MAXIMUM_SPEED)
-
 	move_and_slide()
 
 func _input(event: InputEvent):
@@ -290,6 +288,8 @@ func _on_ground_state_physics_processing(delta: float):
 
 	movement(accelerations[PlacemantState.Ground], delta)
 
+	velocity = velocity.limit_length(MAXIMUM_SPEED)
+
 
 func _as_coyote_state_physics_processing(delta: float):
 	if is_disabled(): return
@@ -297,6 +297,8 @@ func _as_coyote_state_physics_processing(delta: float):
 	if jump_if_possible(JUMP_VELOCITY_MODIFIER): jump.emit(self, PlacemantState.Coyote, NOT_LAST_CHANCE)
 	if dash_if_possible(DASH_VELOCITY_MODIFIER): dash.emit(self, PlacemantState.Coyote, NOT_LAST_CHANCE)
 	movement(accelerations[PlacemantState.Coyote], delta)
+
+	velocity = velocity.limit_length(MAXIMUM_SPEED)
 
 
 func _in_air_state_physics_processing(delta: float):
@@ -316,6 +318,9 @@ func _in_air_state_physics_processing(delta: float):
 	ask_for_jump = false
 
 	movement(accelerations[PlacemantState.MidAir], delta)
+
+	if is_on_wall():
+		velocity = velocity.limit_length(MAXIMUM_SPEED)
 
 
 func _on_wall_state_physics_processing(delta: float):
@@ -349,6 +354,8 @@ func _on_wall_state_physics_processing(delta: float):
 		if dash_if_possible(): dash.emit(self, PlacemantState.Ground, NOT_LAST_CHANCE)
 
 	movement(accelerations[PlacemantState.Wall], delta)
+
+	velocity = velocity.limit_length(MAXIMUM_SPEED)
 
 #endregion Movement States
 
