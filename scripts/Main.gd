@@ -35,6 +35,19 @@ func _input(event: InputEvent) -> void:
 		else:
 			main_menu.exit_menu()
 
+func _notification(what: int) -> void:
+	match what:
+		NOTIFICATION_APPLICATION_FOCUS_OUT:
+			if not get_tree().paused:
+				get_tree().paused = true
+				main_menu.show_menu()
+		NOTIFICATION_WM_CLOSE_REQUEST:
+			var path: String = ProjectSettings.get_setting("application/config/project_settings_override")
+			if not DirAccess.dir_exists_absolute(path.get_base_dir()):
+				DirAccess.make_dir_recursive_absolute(path.get_base_dir())
+			ProjectSettings.save_custom(path)
+			get_tree().quit()
+
 func _load_last_game():
 	assert(game_default_scene != null, "Cannot found game_default_scene resource file")
 	assert(game_default_scene.can_instantiate(), "Cannot instantiate game_default_scene resource file")
@@ -79,5 +92,5 @@ func _on_play_button_pressed():
 		current_level.player.spawn()
 
 func _on_exit_button_pressed():
+	get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
 	await main_menu.exit_menu()
-	get_tree().quit()
