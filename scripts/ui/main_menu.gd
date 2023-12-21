@@ -32,6 +32,14 @@ func _ready():
 	_set_settings_buttons_disabled(true)
 	set_process_input(true)
 
+func _input(event: InputEvent) -> void:
+	if Focus.event_is_action_released(event, "ui_cancel"):
+		if is_in_settings():
+			show_menu()
+
+func is_in_settings() -> bool:
+	return input_settings_grid.visible or graphics_settings_grid.visible or audio_settings_grid.visible
+
 #region Show / Hide main menu
 
 func show_menu():
