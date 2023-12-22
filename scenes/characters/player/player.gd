@@ -56,7 +56,8 @@ class Animations:
 @export var max_dash_count: int = 1
 @export var dash_speed_curve: Curve = load("uid://b4gxfw82qvdds")
 @export var climb_resistance_curve: Curve = load("uid://bvfqik0okq6ni")
-@export_category("Movement Sounds")
+
+@export var disabled_to_death_delay: float = 1.0
 #endregion export variables
 
 #region onready variables
@@ -242,7 +243,7 @@ func _on_hit_box_body_entered(body: Node2D):
 	# TODO: Make it more universal. Body has to be able to tell us what to do or kinda
 	print("On hit box body entered: ", str(body))
 	die()
-	await get_tree().create_timer(1.5).timeout
+	await get_tree().create_timer(disabled_to_death_delay).timeout
 	destroy()
 
 #endregion Collision callbacks

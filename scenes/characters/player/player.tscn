@@ -239,6 +239,7 @@ bus = &"player_movement"
 
 [node name="Disabled" type="AudioStreamPlayer" parent="SoundManager/Behaviour"]
 stream = ExtResource("16_vaxs0")
+volume_db = 10.0
 bus = &"player_behaviour"
 
 [node name="Assembled" type="AudioStreamPlayer" parent="SoundManager/Behaviour"]
