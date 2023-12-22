@@ -6,12 +6,12 @@
 [ext_resource type="Texture2D" uid="uid://qobefkpdqd65" path="res://assets/images/textures/spikes/spike.png" id="3_p0qfp"]
 [ext_resource type="PackedScene" uid="uid://bs3d5i8crch84" path="res://scenes/characters/player/player.tscn" id="4_lbpr6"]
 [ext_resource type="Shader" path="res://assets/shaders/vsh_glich.gdshader" id="5_eh4t5"]
-[ext_resource type="Script" path="res://scripts/utilities/Teleport.gd" id="6_4f3xj"]
-[ext_resource type="Script" path="res://scripts/utilities/SoundArea.gd" id="7_236pr"]
+[ext_resource type="Script" path="res://scripts/utilities/sound_area.gd" id="7_awx2h"]
 [ext_resource type="AudioStream" uid="uid://cmp56f15lna6m" path="res://assets/audio/music/memes/a_sinful_city_3.wav" id="8_8f4ob"]
 [ext_resource type="AudioStream" uid="uid://dmhm706vns7g7" path="res://assets/audio/music/memes/rock_eyebrow_raise.mp3" id="9_w28qv"]
 [ext_resource type="AudioStream" uid="uid://s16t8fspbkbk" path="res://assets/audio/music/memes/oh_my_god.mp3" id="10_3og2c"]
 [ext_resource type="AudioStream" uid="uid://ba8u5l67gsxo2" path="res://assets/audio/music/memes/look_at_this_distinguished_gentleman.wav" id="11_mmxia"]
+[ext_resource type="Script" path="res://scripts/utilities/teleport_area.gd" id="12_mofhk"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_w0yi3"]
 noise_type = 0
@@ -780,7 +780,7 @@ offset_bottom = -979.0
 
 [node name="SinfulCityMusic" type="Node2D" parent="TileMap/MemeSounds" node_paths=PackedStringArray("sound")]
 position = Vector2(1492, -890)
-script = ExtResource("7_236pr")
+script = ExtResource("7_awx2h")
 sound = NodePath("AudioStreamPlayer2D")
 
 [node name="Area2D" type="Area2D" parent="TileMap/MemeSounds/SinfulCityMusic"]
@@ -794,7 +794,7 @@ bus = &"playground"
 
 [node name="RockEyebrowRaise" type="Node2D" parent="TileMap/MemeSounds" node_paths=PackedStringArray("sound")]
 position = Vector2(3460, -1126)
-script = ExtResource("7_236pr")
+script = ExtResource("7_awx2h")
 sound = NodePath("AudioStreamPlayer2D")
 
 [node name="Area2D" type="Area2D" parent="TileMap/MemeSounds/RockEyebrowRaise"]
@@ -808,7 +808,7 @@ bus = &"playground"
 
 [node name="OhMyGod" type="Node2D" parent="TileMap/MemeSounds" node_paths=PackedStringArray("sound")]
 position = Vector2(4839, -681)
-script = ExtResource("7_236pr")
+script = ExtResource("7_awx2h")
 sound = NodePath("AudioStreamPlayer2D")
 
 [node name="Area2D" type="Area2D" parent="TileMap/MemeSounds/OhMyGod"]
@@ -822,7 +822,7 @@ bus = &"playground"
 
 [node name="LookAtThis" type="Node2D" parent="TileMap/MemeSounds" node_paths=PackedStringArray("sound")]
 position = Vector2(-328, -298)
-script = ExtResource("7_236pr")
+script = ExtResource("7_awx2h")
 sound = NodePath("AudioStreamPlayer2D")
 one_shot = true
 
@@ -839,7 +839,7 @@ bus = &"playground"
 
 [node name="OuterWorldTeleport" type="Node2D" parent="TileMap/Teleports" node_paths=PackedStringArray("destination")]
 position = Vector2(1835, 887)
-script = ExtResource("6_4f3xj")
+script = ExtResource("12_mofhk")
 destination = NodePath("../../PlayerSpawnMarker")
 
 [node name="Area2D" type="Area2D" parent="TileMap/Teleports/OuterWorldTeleport"]
@@ -849,7 +849,7 @@ shape = SubResource("RectangleShape2D_rcqeo")
 
 [node name="HiddenPlaceTeleport" type="Node2D" parent="TileMap/Teleports" node_paths=PackedStringArray("destination")]
 position = Vector2(568, -393)
-script = ExtResource("6_4f3xj")
+script = ExtResource("12_mofhk")
 destination = NodePath("Marker2D")
 
 [node name="Area2D" type="Area2D" parent="TileMap/Teleports/HiddenPlaceTeleport"]
@@ -863,7 +863,7 @@ gizmo_extents = 3.0
 
 [node name="TubeDownTeleport" type="Node2D" parent="TileMap/Teleports" node_paths=PackedStringArray("destination")]
 position = Vector2(2352, -26)
-script = ExtResource("6_4f3xj")
+script = ExtResource("12_mofhk")
 destination = NodePath("Marker2D")
 
 [node name="Area2D" type="Area2D" parent="TileMap/Teleports/TubeDownTeleport"]
@@ -877,7 +877,7 @@ gizmo_extents = 3.0
 
 [node name="TubeUpTeleport" type="Node2D" parent="TileMap/Teleports" node_paths=PackedStringArray("destination")]
 position = Vector2(2352, 90)
-script = ExtResource("6_4f3xj")
+script = ExtResource("12_mofhk")
 apply_velocity = Vector2(0, -1150)
 destination = NodePath("Marker2D")
 
@@ -892,7 +892,7 @@ gizmo_extents = 3.0
 
 [node name="GoToShiz" type="Node2D" parent="TileMap/Teleports" node_paths=PackedStringArray("destination")]
 position = Vector2(3928, 326)
-script = ExtResource("6_4f3xj")
+script = ExtResource("12_mofhk")
 destination = NodePath("Marker2D")
 
 [node name="Area2D" type="Area2D" parent="TileMap/Teleports/GoToShiz"]
@@ -906,7 +906,7 @@ gizmo_extents = 3.0
 
 [node name="BackToHiddenPlaceStart" type="Node2D" parent="TileMap/Teleports" node_paths=PackedStringArray("destination")]
 position = Vector2(2584, 70)
-script = ExtResource("6_4f3xj")
+script = ExtResource("12_mofhk")
 apply_velocity = Vector2(0, -500)
 destination = NodePath("Marker2D")
 

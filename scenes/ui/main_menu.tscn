@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://cci83napmkv6b" path="res://scenes/ui/common/vignetting.tscn" id="2_kdy1f"]
 [ext_resource type="Theme" uid="uid://bgce087pako3h" path="res://assets/themes/interface/default.tres" id="3_iqjs4"]
 [ext_resource type="Script" path="res://scripts/ui/settings.gd" id="4_ypi17"]
-[ext_resource type="Script" path="res://scripts/ui/settings/AudioSettingsGrid.gd" id="5_ijqia"]
-[ext_resource type="Script" path="res://scripts/ui/settings/GraphicsSettingsGrid.gd" id="6_aqr0q"]
+[ext_resource type="Script" path="res://scripts/ui/settings/audio_settings_view.gd" id="5_ijqia"]
+[ext_resource type="Script" path="res://scripts/ui/settings/graphics_settings_view.gd" id="6_aqr0q"]
 
 [sub_resource type="Animation" id="Animation_vhldp"]
 resource_name = "call_vignetting_appear"

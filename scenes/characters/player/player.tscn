@@ -2,13 +2,10 @@
 
 [ext_resource type="Texture2D" uid="uid://bwn7ygyb0odym" path="res://assets/images/textures/cubes/cube.png" id="1_kmqy5"]
 [ext_resource type="Script" path="res://scenes/characters/player/player.gd" id="1_mfave"]
-[ext_resource type="Curve" uid="uid://b4gxfw82qvdds" path="res://scenes/characters/player/curves/DashSpeedCurve.tres" id="2_ou0dm"]
+[ext_resource type="Curve" uid="uid://b4gxfw82qvdds" path="res://scenes/characters/player/curves/dash_speed_curve.tres" id="2_wfstn"]
+[ext_resource type="Curve" uid="uid://bvfqik0okq6ni" path="res://scenes/characters/player/curves/climb_resistance_curve.tres" id="3_8smed"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="3_o6cun"]
-[ext_resource type="Curve" uid="uid://bvfqik0okq6ni" path="res://scenes/characters/player/curves/ClimbResistanceCurve.tres" id="3_tgmky"]
-[ext_resource type="Script" path="res://scenes/characters/player/timers/DashingTimer.gd" id="3_u26qj"]
 [ext_resource type="Material" uid="uid://cbnc41iyr8fjq" path="res://scenes/characters/player/materials/pixel_destorsion.tres" id="4_fkpy4"]
-[ext_resource type="Script" path="res://scenes/characters/player/timers/ClimbingTimer.gd" id="4_mvqst"]
-[ext_resource type="Script" path="res://scenes/characters/player/timers/CoyoteTimer.gd" id="5_jy4sq"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="5_uoeii"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="6_gsiui"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="7_2mu1g"]
@@ -23,7 +20,10 @@
 [ext_resource type="AudioStream" uid="uid://fpcfwpt25ykl" path="res://assets/audio/sfx/behavior/movement/jump/wall_jump.wav" id="15_qpe33"]
 [ext_resource type="Shader" path="res://assets/shaders/lighting.gdshader" id="15_umysy"]
 [ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="16_3mc08"]
+[ext_resource type="Script" path="res://scenes/characters/player/timers/coyote_timer.gd" id="16_5wvng"]
 [ext_resource type="AudioStream" uid="uid://bq64cu5g0j50m" path="res://assets/audio/sfx/behavior/player_death_sound.wav" id="16_vaxs0"]
+[ext_resource type="Script" path="res://scenes/characters/player/timers/dashing_timer.gd" id="17_14p8r"]
+[ext_resource type="Script" path="res://scenes/characters/player/timers/climbing_timer.gd" id="18_5a74q"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lyo8e"]
 shader = ExtResource("15_umysy")
@@ -139,8 +139,8 @@ collision_mask = 3
 safe_margin = 0.1
 script = ExtResource("1_mfave")
 max_dash_count = 2
-dash_speed_curve = ExtResource("2_ou0dm")
-climb_resistance_curve = ExtResource("3_tgmky")
+dash_speed_curve = ExtResource("2_wfstn")
+climb_resistance_curve = ExtResource("3_8smed")
 
 [node name="sprite" type="Sprite2D" parent="."]
 material = ExtResource("4_fkpy4")
@@ -253,16 +253,16 @@ bus = &"player_behaviour"
 process_callback = 0
 wait_time = 0.1
 one_shot = true
-script = ExtResource("5_jy4sq")
+script = ExtResource("16_5wvng")
 
 [node name="DashingTimer" type="Timer" parent="Timers"]
 wait_time = 0.3
 one_shot = true
-script = ExtResource("3_u26qj")
+script = ExtResource("17_14p8r")
 next_dash_treshold = 0.05
 
 [node name="ClimbingTimer" type="Timer" parent="Timers"]
-script = ExtResource("4_mvqst")
+script = ExtResource("18_5a74q")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
