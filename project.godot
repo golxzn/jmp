@@ -22,9 +22,9 @@ config/icon="res://assets/images/textures/cubes/cube.png"
 [audio]
 
 bus_volume_db/volume/music=-6.0206
-bus_volume_db/volume/player_sfx=0.0
-bus_volume_db/volume/environment_sfx=0.0
-bus_volume_db/volume/UI=0.0
+bus_volume_db/volume/player_sfx=-1.938
+bus_volume_db/volume/environment_sfx=-1.938
+bus_volume_db/volume/UI=-6.021
 
 [autoload]
 

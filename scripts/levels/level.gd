@@ -16,10 +16,16 @@ func _ready():
 func _on_player_spawn_marker_entity_spawned(entity: Node) -> void:
 	if entity is Player:
 		player = entity as Player
+		player.player_disabled.connect(self._on_player_disabled)
 		player.player_destroyed.connect(self._on_player_destroyed)
+
+func _on_player_disabled():
+	if camera is ShakingCamera:
+		camera.enable_glitches()
 
 func _on_player_destroyed():
 	if camera is ShakingCamera:
+		camera.disable_glitches()
 		camera.apply_shake()
 
 	player.player_destroyed.disconnect(self._on_player_destroyed)

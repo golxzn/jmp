@@ -8,8 +8,8 @@ uniform float speed = 0.5;
 uniform float initial_amplitude = 0.5;
 uniform float gain = 0.5;
 uniform float frequency = 2.0;
-uniform float min_lighting_width : hint_range(0.0, 1.0, 0.1) = 0.0;
-uniform float max_lighting_width : hint_range(0.0, 1.0, 0.05) = 0.05;
+uniform float min_lighting_width : hint_range(0.0, 1.0, 0.01) = 0.0;
+uniform float max_lighting_width : hint_range(0.0, 1.0, 0.01) = 0.05;
 uniform float alpha_cut_off : hint_range(0.0, 1.0, 0.1) = 0.4;
 
 float hash12(vec2 x) {

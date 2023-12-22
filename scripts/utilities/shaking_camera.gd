@@ -5,6 +5,8 @@ class_name ShakingCamera extends Camera2D
 @export var noise_shake_strength: float = 60.0
 @export var shake_decay_rate: float = 5.0
 
+@onready var vsh_glitch: ColorRect = $VSHGlitch
+
 var noise_y: float = 0.0
 var shake_strenght: float = 0.0
 
@@ -18,6 +20,12 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	shake_strenght = lerp(shake_strenght, 0.0, delta * shake_decay_rate)
 	offset = get_noise_offset(delta, shake_strenght)
+
+func enable_glitches() -> void:
+	vsh_glitch.visible = true
+
+func disable_glitches() -> void:
+	vsh_glitch.visible = false
 
 func apply_shake(strenght: float = noise_shake_strength) -> void:
 	shake_strenght = min(strenght, noise_shake_strength)
