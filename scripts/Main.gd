@@ -8,7 +8,7 @@ class_name Main extends Node
 @export var game_default_scene: PackedScene = preload("res://scenes/levels/playground/playground.tscn")
 @export var game_place: Node = null
 
-@onready var main_camera = %MainCam
+# @onready var main_camera = %MainCam
 
 var game_started: bool = false
 var current_level: Level = null
@@ -23,7 +23,7 @@ func _ready():
 
 	_load_last_game()
 	_load_main_menu()
-	_setup_camera(main_camera)
+	# _setup_camera(main_camera)
 
 	main_menu.show_menu()
 	await main_menu.main_menu_show_animation_complete
