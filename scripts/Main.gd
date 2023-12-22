@@ -10,6 +10,7 @@ class_name Main extends Node
 
 @onready var main_camera = %MainCam
 
+var game_started: bool = false
 var current_level: Level = null
 var main_menu: MainMenu = null
 
@@ -28,7 +29,7 @@ func _ready():
 	await main_menu.main_menu_show_animation_complete
 
 func _input(event: InputEvent) -> void:
-	if Focus.event_is_action_released(event, "ui_pause"):
+	if Focus.event_is_action_released(event, "ui_pause") and game_started:
 		get_tree().paused = !get_tree().paused
 		if get_tree().paused:
 			main_menu.show_menu()
@@ -82,6 +83,7 @@ func _on_play_button_pressed():
 
 	_setup_camera(current_level.camera)
 	get_tree().paused = false
+	game_started = true
 
 
 func _on_exit_button_pressed():

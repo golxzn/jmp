@@ -1,7 +1,8 @@
-[gd_scene load_steps=27 format=3 uid="uid://hav2pqxphvqh"]
+[gd_scene load_steps=29 format=3 uid="uid://hav2pqxphvqh"]
 
 [ext_resource type="Script" path="res://scripts/levels/level.gd" id="1_gqmv1"]
 [ext_resource type="Texture2D" uid="uid://42dw4267qcbl" path="res://assets/tilemaps/ground/ground.png" id="2_imc4f"]
+[ext_resource type="Script" path="res://scripts/utilities/shaking_camera.gd" id="2_whhle"]
 [ext_resource type="Texture2D" uid="uid://qobefkpdqd65" path="res://assets/images/textures/spikes/spike.png" id="3_p0qfp"]
 [ext_resource type="PackedScene" uid="uid://bs3d5i8crch84" path="res://scenes/characters/player/player.tscn" id="4_lbpr6"]
 [ext_resource type="Shader" path="res://assets/shaders/vsh_glich.gdshader" id="5_eh4t5"]
@@ -11,6 +12,11 @@
 [ext_resource type="AudioStream" uid="uid://dmhm706vns7g7" path="res://assets/audio/music/memes/rock_eyebrow_raise.mp3" id="9_w28qv"]
 [ext_resource type="AudioStream" uid="uid://s16t8fspbkbk" path="res://assets/audio/music/memes/oh_my_god.mp3" id="10_3og2c"]
 [ext_resource type="AudioStream" uid="uid://ba8u5l67gsxo2" path="res://assets/audio/music/memes/look_at_this_distinguished_gentleman.wav" id="11_mmxia"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_w0yi3"]
+noise_type = 0
+fractal_octaves = 8
+fractal_gain = 2.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_x3tma"]
 resource_name = "ground"
@@ -616,9 +622,12 @@ signal entity_spawned(entity: Node)
 @export var child_index: int = 0
 @export var camera_to_set: Camera2D = null
 
-func spawn():
+func spawn(delay: float = 0.0):
 	assert(node_to_place != null, \"Set node to place entity in editor\")
 	assert(entity_to_spawn != null, \"I don't know whom I need to spawn\")
+
+	if delay > 0.0:
+		await get_tree().create_timer(delay).timeout
 
 	var entity: Node2D = entity_to_spawn.instantiate()
 	entity.global_position = global_position
@@ -679,7 +688,7 @@ camera = NodePath("Camera")
 
 [node name="Camera" type="Camera2D" parent="."]
 process_mode = 3
-position = Vector2(360, 22)
+position = Vector2(0, 1)
 zoom = Vector2(2, 2)
 limit_left = -483
 limit_top = -1308
@@ -690,6 +699,8 @@ position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 editor_draw_limits = true
 editor_draw_drag_margin = true
+script = ExtResource("2_whhle")
+noise = SubResource("FastNoiseLite_w0yi3")
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(-16, 9)
