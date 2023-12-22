@@ -5,6 +5,9 @@ class_name Player extends CharacterBody2D
 signal player_assembled
 signal player_disabled
 signal player_destroyed
+signal palyer_self_destruction_started
+signal player_self_destruction_progress(progress: float)
+signal palyer_self_destruction_interrupted
 
 signal dash(player: Player, state: String, is_last_chance: bool)
 signal jump(player: Player, state: String, is_last_chance: bool)
@@ -64,6 +67,7 @@ class Animations:
 @onready var coyote_timer: CoyoteTimer = $Timers/CoyoteTimer
 @onready var dashing_timer: DashingTimer = $Timers/DashingTimer
 @onready var climbing_timer: ClimbingTimer = $Timers/ClimbingTimer
+@onready var self_destruction_timer: ProgressTimer = $Timers/SelfDestructionTimer
 
 @onready var ray_to_bottom: RayCast2D = $PlayerCollision/RayToBottom
 @onready var state_chart: StateChart = $StateChart
@@ -141,12 +145,15 @@ func _ready():
 	climbing_timer.timeout.connect(self._on_climbing_timer_timeout)
 	dashing_timer.timeout.connect(self._on_dashing_timer_timeout)
 	coyote_timer.timeout.connect(self._on_coyote_timer_timeout)
+	self_destruction_timer.timeout.connect(self._on_self_destruction_timer_timeout)
 
 	spawn()
 
 func _process(_delta: float):
 	state_chart.set_expression_property("is_moving", is_moving())
 	state_chart.set_expression_property("is_on_wall_only", is_on_wall_only())
+	if not self_destruction_timer.is_stopped():
+		player_self_destruction_progress.emit(self_destruction_timer.progress())
 
 func _physics_process(delta: float):
 	check_climbing()
@@ -161,6 +168,12 @@ func _physics_process(delta: float):
 func _input(event: InputEvent):
 	if Focus.event_is_action_pressed(event, "jump"): ask_for_jump = true
 	if Focus.event_is_action_pressed(event, "dash"): ask_for_dash = true
+	if Focus.event_is_action_pressed(event, "self_destruction"):
+		self_destruction_timer.start()
+		palyer_self_destruction_started.emit()
+	elif Focus.event_is_action_released(event, "self_destruction"):
+		self_destruction_timer.stop()
+		palyer_self_destruction_interrupted.emit()
 
 #endregion Default overrided methods
 
@@ -271,6 +284,9 @@ func _on_coyote_timer_timeout():
 	if dash_if_possible(DASH_VELOCITY_MODIFIER): dash.emit(self, PlacemantState.Coyote, LAST_CHANCE)
 
 	set_movement_state(PlacemantState.Wall if is_on_wall_only() else PlacemantState.MidAir)
+
+func _on_self_destruction_timer_timeout() -> void:
+	destroy()
 
 #endregion
 

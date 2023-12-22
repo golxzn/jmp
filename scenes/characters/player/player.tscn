@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://bs3d5i8crch84"]
+[gd_scene load_steps=35 format=3 uid="uid://bs3d5i8crch84"]
 
 [ext_resource type="Texture2D" uid="uid://bwn7ygyb0odym" path="res://assets/images/textures/cubes/cube.png" id="1_kmqy5"]
 [ext_resource type="Script" path="res://scenes/characters/player/player.gd" id="1_mfave"]
@@ -24,6 +24,7 @@
 [ext_resource type="AudioStream" uid="uid://bq64cu5g0j50m" path="res://assets/audio/sfx/behavior/player_death_sound.wav" id="16_vaxs0"]
 [ext_resource type="Script" path="res://scenes/characters/player/timers/dashing_timer.gd" id="17_14p8r"]
 [ext_resource type="Script" path="res://scenes/characters/player/timers/climbing_timer.gd" id="18_5a74q"]
+[ext_resource type="Script" path="res://scenes/characters/player/timers/progress_timer.gd" id="19_nvpja"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lyo8e"]
 shader = ExtResource("15_umysy")
@@ -185,7 +186,7 @@ target_position = Vector2(0, 11)
 [node name="AudioListener2D" type="AudioListener2D" parent="."]
 current = true
 
-[node name="SoundManager" type="Node2D" parent="." node_paths=PackedStringArray("ground_dash", "coyote_dash", "mid_air_dash", "wall_dash", "ground_jump", "coyote_jump", "mid_air_jump", "wall_jump", "disabling", "assembling", "destroying")]
+[node name="SoundManager" type="Node2D" parent="." node_paths=PackedStringArray("ground_dash", "coyote_dash", "mid_air_dash", "wall_dash", "ground_jump", "coyote_jump", "mid_air_jump", "wall_jump", "disabling", "assembling", "destroying", "self_destruction")]
 script = ExtResource("7_shnfj")
 ground_dash = NodePath("Movement/Dash/Ground")
 coyote_dash = NodePath("Movement/Dash/Coyote")
@@ -198,6 +199,7 @@ wall_jump = NodePath("Movement/Jump/Wall")
 disabling = NodePath("Behaviour/Disabled")
 assembling = NodePath("Behaviour/Assembled")
 destroying = NodePath("Behaviour/Destroyed")
+self_destruction = NodePath("Behaviour/SelfDestruction")
 
 [node name="Movement" type="Node" parent="SoundManager"]
 
@@ -250,6 +252,9 @@ bus = &"player_behaviour"
 [node name="Destroyed" type="AudioStreamPlayer" parent="SoundManager/Behaviour"]
 bus = &"player_behaviour"
 
+[node name="SelfDestruction" type="AudioStreamPlayer" parent="SoundManager/Behaviour"]
+bus = &"player_behaviour"
+
 [node name="Timers" type="Node" parent="."]
 
 [node name="CoyoteTimer" type="Timer" parent="Timers"]
@@ -266,6 +271,11 @@ next_dash_treshold = 0.05
 
 [node name="ClimbingTimer" type="Timer" parent="Timers"]
 script = ExtResource("18_5a74q")
+
+[node name="SelfDestructionTimer" type="Timer" parent="Timers"]
+wait_time = 1.5
+one_shot = true
+script = ExtResource("19_nvpja")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -380,6 +390,8 @@ target = NodePath("../../../..")
 
 [connection signal="dash" from="." to="SoundManager" method="_on_player_dash"]
 [connection signal="jump" from="." to="SoundManager" method="_on_player_jump"]
+[connection signal="palyer_self_destruction_interrupted" from="." to="SoundManager" method="_on_player_self_destruction_interrupted"]
+[connection signal="palyer_self_destruction_started" from="." to="SoundManager" method="_on_player_self_destruction_started"]
 [connection signal="player_assembled" from="." to="SoundManager" method="_on_player_player_assembled"]
 [connection signal="player_destroyed" from="." to="SoundManager" method="_on_player_player_destroyed"]
 [connection signal="player_disabled" from="." to="SoundManager" method="_on_player_player_disabled"]

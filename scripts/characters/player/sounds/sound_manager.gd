@@ -16,6 +16,7 @@ class_name SoundManager extends Node2D
 @export var disabling: AudioStreamPlayer = null
 @export var assembling: AudioStreamPlayer = null
 @export var destroying: AudioStreamPlayer = null
+@export var self_destruction: AudioStreamPlayer = null
 
 enum Playlists{ Jump, Dash }
 
@@ -61,3 +62,11 @@ func _on_player_player_destroyed() -> void:
 
 func _on_player_player_assembled() -> void:
 	if assembling: assembling.play()
+
+
+func _on_player_self_destruction_started() -> void:
+	if self_destruction: self_destruction.play()
+
+
+func _on_player_self_destruction_interrupted() -> void:
+	if self_destruction.playing: self_destruction.stop()

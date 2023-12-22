@@ -1,6 +1,7 @@
-[gd_scene load_steps=30 format=3 uid="uid://hav2pqxphvqh"]
+[gd_scene load_steps=31 format=3 uid="uid://hav2pqxphvqh"]
 
 [ext_resource type="Script" path="res://scripts/levels/level.gd" id="1_gqmv1"]
+[ext_resource type="Curve" uid="uid://bx6i1i74tgmdq" path="res://scenes/levels/playground/curves/player_self_destruction_shaking_camera_curve.tres" id="2_6w7xs"]
 [ext_resource type="Texture2D" uid="uid://42dw4267qcbl" path="res://assets/tilemaps/ground/ground.png" id="2_imc4f"]
 [ext_resource type="Script" path="res://scripts/utilities/shaking_camera.gd" id="2_whhle"]
 [ext_resource type="Texture2D" uid="uid://qobefkpdqd65" path="res://assets/images/textures/spikes/spike.png" id="3_p0qfp"]
@@ -693,6 +694,7 @@ shader_parameter/colorOffsetIntensity = 1.3
 [node name="playground" type="Node2D" node_paths=PackedStringArray("camera")]
 script = ExtResource("1_gqmv1")
 camera = NodePath("Camera")
+player_self_destruction_shaking_curve = ExtResource("2_6w7xs")
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(-16, 9)
