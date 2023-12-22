@@ -74,6 +74,7 @@ class Animations:
 
 @onready var animations: AnimationPlayer = $AnimationPlayer
 @onready var broken_lighting: Control = $VFX/BrokenLightings
+@onready var collector: Collector = $Collector
 #endregion onready variables
 
 enum Face { Left = -1, Right = 1 }
@@ -252,9 +253,8 @@ func movement(acceleration: float, delta: float):
 
 #region Collision callbacks
 
-func _on_hit_box_body_entered(body: Node2D):
+func _on_hit_box_body_entered(_body: Node2D):
 	# TODO: Make it more universal. Body has to be able to tell us what to do or kinda
-	print("On hit box body entered: ", str(body))
 	die()
 	await get_tree().create_timer(disabled_to_death_delay).timeout
 	destroy()
@@ -293,7 +293,6 @@ func _on_self_destruction_timer_timeout() -> void:
 #region Movement States
 
 func set_movement_state(state: String):
-	# print("Change state from [%s] to [%s]" % [current_movement_state, state])
 	if state != current_movement_state:
 		current_movement_state = state
 		state_chart.send_event(current_movement_state)

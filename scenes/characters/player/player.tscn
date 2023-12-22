@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://bs3d5i8crch84"]
+[gd_scene load_steps=37 format=3 uid="uid://bs3d5i8crch84"]
 
 [ext_resource type="Texture2D" uid="uid://bwn7ygyb0odym" path="res://assets/images/textures/cubes/cube.png" id="1_kmqy5"]
 [ext_resource type="Script" path="res://scenes/characters/player/player.gd" id="1_mfave"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="6_gsiui"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="7_2mu1g"]
 [ext_resource type="Script" path="res://scripts/characters/player/sounds/sound_manager.gd" id="7_shnfj"]
+[ext_resource type="Script" path="res://scripts/gameplay/collecting_mechanic/collector.gd" id="7_ujb05"]
 [ext_resource type="AudioStream" uid="uid://e2lx04mmn2fx" path="res://assets/audio/sfx/behavior/movement/dash/dash.wav" id="8_xcwp1"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/parallel_state.gd" id="10_3q06q"]
 [ext_resource type="AudioStream" uid="uid://djx80hk3muw1f" path="res://assets/audio/sfx/behavior/movement/dash/midair_dash.wav" id="10_635kx"]
@@ -37,6 +38,9 @@ shader_parameter/frequency = 2.0
 shader_parameter/min_lighting_width = 0.02
 shader_parameter/max_lighting_width = 0.51
 shader_parameter/alpha_cut_off = 0.3
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e1coe"]
+size = Vector2(16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ony1w"]
 size = Vector2(16, 16)
@@ -134,9 +138,9 @@ func _update_debug_label():
 	]
 "
 
-[node name="player" type="CharacterBody2D" groups=["teleportable"]]
+[node name="player" type="CharacterBody2D" groups=["collector", "teleportable"]]
 process_mode = 1
-collision_mask = 3
+collision_mask = 14
 safe_margin = 0.1
 script = ExtResource("1_mfave")
 max_dash_count = 2
@@ -166,17 +170,26 @@ offset_bottom = 12.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HitBox" type="Area2D" parent="."]
-visible = false
+[node name="Collector" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 2
+collision_mask = 4
+input_pickable = false
+script = ExtResource("7_ujb05")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collector"]
+shape = SubResource("RectangleShape2D_e1coe")
+debug_color = Color(0.737255, 0.572549, 0.14902, 0.419608)
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+input_pickable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 shape = SubResource("RectangleShape2D_ony1w")
 debug_color = Color(0.952941, 0.145098, 0.423529, 0.419608)
 
 [node name="PlayerCollision" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource("RectangleShape2D_3eunv")
 
 [node name="RayToBottom" type="RayCast2D" parent="PlayerCollision"]

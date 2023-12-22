@@ -1,5 +1,7 @@
 class_name Main extends Node
 
+signal on_game_started()
+
 @export_group("Interface")
 @export var main_menu_scene: PackedScene = preload("res://scenes/ui/main_menu.tscn")
 @export var main_menu_place: Node = null
@@ -25,8 +27,7 @@ func _ready():
 	_load_main_menu()
 	# _setup_camera(main_camera)
 
-	main_menu.show_menu()
-	await main_menu.main_menu_show_animation_complete
+	await main_menu.show_menu()
 
 func _input(event: InputEvent) -> void:
 	if Focus.event_is_action_released(event, "ui_pause") and game_started:
@@ -42,6 +43,7 @@ func _notification(what: int) -> void:
 			if not get_tree().paused:
 				get_tree().paused = true
 				main_menu.show_menu()
+
 		NOTIFICATION_WM_CLOSE_REQUEST:
 			var path: String = ProjectSettings.get_setting("application/config/project_settings_override")
 			if not DirAccess.dir_exists_absolute(path.get_base_dir()):
@@ -84,6 +86,7 @@ func _on_play_button_pressed():
 	_setup_camera(current_level.camera)
 	get_tree().paused = false
 	game_started = true
+	on_game_started.emit()
 
 
 func _on_exit_button_pressed():

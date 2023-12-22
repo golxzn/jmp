@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://plu37p60fls3"]
+
+[ext_resource type="Script" path="res://scripts/gameplay/collecting_mechanic/collectable.gd" id="1_61ggl"]
+[ext_resource type="AudioStream" uid="uid://b0bx16jy5uac3" path="res://assets/audio/sfx/environment/collect_coin.mp3" id="2_onlxh"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_5ayy4"]
+size = Vector2(8, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ex234"]
+size = Vector2(9, 9)
+
+[node name="Collectable" type="Area2D" node_paths=PackedStringArray("collect_sound") groups=["collectable"]]
+collision_layer = 4
+collision_mask = 0
+input_pickable = false
+audio_bus_name = &"environment_sfx"
+script = ExtResource("1_61ggl")
+collect_sound = NodePath("CollectSound")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("PlaceholderTexture2D_5ayy4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ex234")
+
+[node name="CollectSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_onlxh")
+bus = &"environment_sfx"
