@@ -43,6 +43,8 @@ func safe_play(playlist: Dictionary, state: String):
 	var sound: AudioStreamPlayer = playlist[state]
 	if sound: sound.play()
 
+func can_play(player: AudioStreamPlayer) -> bool:
+	return not get_tree().paused and player != null
 
 func _on_player_dash(_player: Player, state: String, _is_last_chance: bool):
 	safe_play(playlists[Playlists.Dash], state)
@@ -61,12 +63,12 @@ func _on_player_self_destruction_interrupted() -> void:
 
 
 func _on_player_begin_assembling():
-	if assembling: assembling.play()
+	if can_play(assembling): assembling.play()
 
 
 func _on_player_begin_disabling():
-	if disabling: disabling.play()
+	if can_play(disabling): disabling.play()
 
 
 func _on_player_begin_destroying():
-	if destroying: destroying.play()
+	if can_play(destroying): destroying.play()
