@@ -52,21 +52,21 @@ func _on_player_jump(_player: Player, state: String, _is_last_chance: bool):
 	safe_play(playlists[Playlists.Jump], state)
 
 
-func _on_player_player_disabled() -> void:
-	if disabling: disabling.play()
-
-
-func _on_player_player_destroyed() -> void:
-	if destroying: destroying.play()
-
-
-func _on_player_player_assembled() -> void:
-	if assembling: assembling.play()
-
-
 func _on_player_self_destruction_started() -> void:
 	if self_destruction: self_destruction.play()
 
 
 func _on_player_self_destruction_interrupted() -> void:
 	if self_destruction.playing: self_destruction.stop()
+
+
+func _on_player_begin_assembling():
+	if assembling: assembling.play()
+
+
+func _on_player_begin_disabling():
+	if disabling: disabling.play()
+
+
+func _on_player_begin_destroying():
+	if destroying: destroying.play()

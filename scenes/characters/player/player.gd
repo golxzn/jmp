@@ -2,9 +2,15 @@ class_name Player extends CharacterBody2D
 
 #region signals
 
+signal player_begin_assembling
 signal player_assembled
+
+signal player_begin_disabling
 signal player_disabled
+
+signal player_begin_destroying
 signal player_destroyed
+
 signal palyer_self_destruction_started
 signal player_self_destruction_progress(progress: float)
 signal palyer_self_destruction_interrupted
@@ -93,6 +99,7 @@ func is_enabled()  -> bool: return current_player_state == PlayerState.Enable
 func is_disabled() -> bool: return current_player_state == PlayerState.Disable
 
 func spawn():
+	player_begin_assembling.emit()
 	broken_lighting.visible = false
 	animations.play(Animations.Spawn)
 	await animations.animation_finished
@@ -100,11 +107,13 @@ func spawn():
 	player_assembled.emit()
 
 func die():
+	player_begin_disabling.emit()
 	broken_lighting.visible = true
 	set_player_state(PlayerState.Disable)
 	player_disabled.emit()
 
 func destroy():
+	player_begin_destroying.emit()
 	broken_lighting.visible = false
 	animations.play(Animations.Death)
 	await animations.animation_finished
