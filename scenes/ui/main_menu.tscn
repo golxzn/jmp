@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://dlxerxs6n2ubl"]
+[gd_scene load_steps=38 format=3 uid="uid://dlxerxs6n2ubl"]
 
 [ext_resource type="Script" path="res://scripts/ui/main_menu.gd" id="1_yf3t6"]
 [ext_resource type="PackedScene" uid="uid://cci83napmkv6b" path="res://scenes/ui/common/vignetting.tscn" id="2_kdy1f"]
@@ -6,6 +6,203 @@
 [ext_resource type="Script" path="res://scripts/ui/settings.gd" id="4_ypi17"]
 [ext_resource type="Script" path="res://scripts/ui/settings/audio_settings_view.gd" id="5_ijqia"]
 [ext_resource type="Script" path="res://scripts/ui/settings/graphics_settings_view.gd" id="6_aqr0q"]
+
+[sub_resource type="Animation" id="Animation_jfhf0"]
+resource_name = "menu_buttons_hide"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ButtonsMargins:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-325, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ButtonsMargins/ButtonsPanel:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ButtonsMargins:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_murgy"]
+resource_name = "menu_buttons_show"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ButtonsMargins:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-325, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ButtonsMargins/ButtonsPanel:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ButtonsMargins:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yqlum"]
+_data = {
+"menu_buttons_hide": SubResource("Animation_jfhf0"),
+"menu_buttons_show": SubResource("Animation_murgy")
+}
+
+[sub_resource type="Animation" id="Animation_d8bnb"]
+resource_name = "settings_hide"
+length = 0.2
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ButtonsMargins:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-335, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ButtonsMargins:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ExplorerMargins:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(322, 0), Vector2(1177, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ExplorerMargins:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_2j0gm"]
+resource_name = "settings_show"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ExplorerMargins:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1177, 0), Vector2(322, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ExplorerMargins:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ButtonsMargins:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-335, 0), Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ButtonsMargins:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1o6r7"]
+_data = {
+"settings_hide": SubResource("Animation_d8bnb"),
+"settings_show": SubResource("Animation_2j0gm")
+}
 
 [sub_resource type="Animation" id="Animation_vhldp"]
 resource_name = "call_vignetting_appear"
@@ -49,198 +246,58 @@ tracks/0/keys = {
 resource_name = "main_menu_buttons_hide"
 length = 0.2
 step = 0.01
-tracks/0/type = "value"
+tracks/0/type = "animation"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ButtonsMargins:position")
+tracks/0/path = NodePath("Menu/AnimationPlayer")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(-325, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("ButtonsMargins/ButtonsPanel:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("ButtonsMargins:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.2),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"clips": PackedStringArray("menu_buttons_hide"),
+"times": PackedFloat32Array(0)
 }
 
 [sub_resource type="Animation" id="Animation_gi8cq"]
 resource_name = "main_menu_buttons_show"
 length = 0.2
 step = 0.01
-tracks/0/type = "value"
+tracks/0/type = "animation"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ButtonsMargins:position")
+tracks/0/path = NodePath("Menu/AnimationPlayer")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(-325, 0), Vector2(0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("ButtonsMargins/ButtonsPanel:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("ButtonsMargins:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"clips": PackedStringArray("menu_buttons_show"),
+"times": PackedFloat32Array(0)
 }
 
-[sub_resource type="Animation" id="Animation_1bin5"]
-resource_name = "settings_buttons_hide"
-length = 0.25
-step = 0.01
-tracks/0/type = "value"
+[sub_resource type="Animation" id="Animation_xh7l3"]
+resource_name = "settings_hide"
+length = 0.2
+tracks/0/type = "animation"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Settings/ButtonsMargins:position")
+tracks/0/path = NodePath("Settings/AnimationPlayer")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(-335, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Settings/ButtonsMargins:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.25),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"clips": PackedStringArray("settings_hide"),
+"times": PackedFloat32Array(0)
 }
 
-[sub_resource type="Animation" id="Animation_d10bd"]
-resource_name = "settings_buttons_show"
-length = 0.25
-step = 0.01
-tracks/0/type = "value"
+[sub_resource type="Animation" id="Animation_f4w1q"]
+resource_name = "settings_show"
+length = 0.2
+tracks/0/type = "animation"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Settings/ButtonsMargins:position")
+tracks/0/path = NodePath("Settings/AnimationPlayer")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(-335, 0), Vector2(0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Settings/ButtonsMargins:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
-[sub_resource type="Animation" id="Animation_8868b"]
-resource_name = "settings_panel_hide"
-length = 0.25
-step = 0.01
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Settings/ExplorerMargins:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(322, 0), Vector2(1177, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Settings/ExplorerMargins:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.25),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="Animation" id="Animation_nok7c"]
-resource_name = "settings_panel_show"
-length = 0.25
-step = 0.01
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Settings/ExplorerMargins:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(1177, 0), Vector2(322, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Settings/ExplorerMargins:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"clips": PackedStringArray("settings_show"),
+"times": PackedFloat32Array(0)
 }
 
 [sub_resource type="Animation" id="Animation_gk04r"]
@@ -283,10 +340,8 @@ _data = {
 "call_vignetting_disappear": SubResource("Animation_2fmet"),
 "main_menu_buttons_hide": SubResource("Animation_5mskt"),
 "main_menu_buttons_show": SubResource("Animation_gi8cq"),
-"settings_buttons_hide": SubResource("Animation_1bin5"),
-"settings_buttons_show": SubResource("Animation_d10bd"),
-"settings_panel_hide": SubResource("Animation_8868b"),
-"settings_panel_show": SubResource("Animation_nok7c"),
+"settings_hide": SubResource("Animation_xh7l3"),
+"settings_show": SubResource("Animation_f4w1q"),
 "version_label_hide": SubResource("Animation_gk04r"),
 "version_label_show": SubResource("Animation_tk4ye")
 }
@@ -309,23 +364,11 @@ nodes/Animation/position = Vector2(-280, 100)
 "nodes/Animation 2/position" = Vector2(-228.06, 238.651)
 node_connections = [&"Add2", 0, &"Animation", &"Add2", 1, &"Animation 2", &"output", 0, &"Add2"]
 
-[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_3bxra"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0hysp"]
+animation = &"settings_hide"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qxn3t"]
-animation = &"settings_panel_hide"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1nc00"]
-animation = &"settings_buttons_hide"
-
-[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_q0eik"]
-graph_offset = Vector2(-628, 55)
-nodes/Add2/node = SubResource("AnimationNodeAdd2_3bxra")
-nodes/Add2/position = Vector2(100, 160)
-nodes/Animation/node = SubResource("AnimationNodeAnimation_1nc00")
-nodes/Animation/position = Vector2(-200, 120)
-"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_qxn3t")
-"nodes/Animation 2/position" = Vector2(-200, 260)
-node_connections = [&"Add2", 0, &"Animation", &"Add2", 1, &"Animation 2", &"output", 0, &"Add2"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4iiok"]
+animation = &"settings_show"
 
 [sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_cx316"]
 
@@ -336,7 +379,7 @@ animation = &"version_label_show"
 animation = &"main_menu_buttons_show"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_xyfq8"]
-graph_offset = Vector2(-681.987, 50.1931)
+graph_offset = Vector2(-741.4, 63.3388)
 nodes/Add2/node = SubResource("AnimationNodeAdd2_cx316")
 nodes/Add2/position = Vector2(20, 140)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_fx2wu")
@@ -345,37 +388,19 @@ nodes/Animation/position = Vector2(-340, 100)
 "nodes/Animation 2/position" = Vector2(-280, 240)
 node_connections = [&"Add2", 0, &"Animation", &"Add2", 1, &"Animation 2", &"output", 0, &"Add2"]
 
-[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_o5jvu"]
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dtdtg"]
-animation = &"settings_panel_show"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_w8q2d"]
-animation = &"settings_buttons_show"
-
-[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_15y2t"]
-graph_offset = Vector2(-597, 32)
-nodes/Add2/node = SubResource("AnimationNodeAdd2_o5jvu")
-nodes/Add2/position = Vector2(60, 120)
-nodes/Animation/node = SubResource("AnimationNodeAnimation_w8q2d")
-nodes/Animation/position = Vector2(-245.711, 84.0219)
-"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_dtdtg")
-"nodes/Animation 2/position" = Vector2(-240, 220)
-node_connections = [&"Add2", 0, &"Animation", &"Add2", 1, &"Animation 2", &"output", 0, &"Add2"]
-
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_34co5"]
 switch_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0vs7l"]
-switch_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gey3d"]
-switch_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_51qqj"]
-switch_mode = 2
-
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_h244f"]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tfri3"]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_g8cu4"]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_31te3"]
 switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_131w1"]
@@ -383,14 +408,14 @@ states/End/position = Vector2(742, 100)
 states/Start/position = Vector2(83, 100)
 states/hide_main/node = SubResource("AnimationNodeBlendTree_uwrye")
 states/hide_main/position = Vector2(534, 151)
-states/hide_settings/node = SubResource("AnimationNodeBlendTree_q0eik")
-states/hide_settings/position = Vector2(299, 40)
+states/settings_hide/node = SubResource("AnimationNodeAnimation_0hysp")
+states/settings_hide/position = Vector2(299, 40)
+states/settings_show/node = SubResource("AnimationNodeAnimation_4iiok")
+states/settings_show/position = Vector2(534, 40)
 states/show_main/node = SubResource("AnimationNodeBlendTree_xyfq8")
 states/show_main/position = Vector2(299, 151)
-states/show_settings/node = SubResource("AnimationNodeBlendTree_15y2t")
-states/show_settings/position = Vector2(534, 40)
-transitions = ["show_main", "hide_main", SubResource("AnimationNodeStateMachineTransition_34co5"), "hide_settings", "show_main", SubResource("AnimationNodeStateMachineTransition_0vs7l"), "show_settings", "hide_settings", SubResource("AnimationNodeStateMachineTransition_gey3d"), "hide_main", "show_settings", SubResource("AnimationNodeStateMachineTransition_51qqj"), "hide_main", "show_main", SubResource("AnimationNodeStateMachineTransition_h244f")]
-graph_offset = Vector2(-229, 39)
+transitions = ["show_main", "hide_main", SubResource("AnimationNodeStateMachineTransition_34co5"), "hide_main", "show_main", SubResource("AnimationNodeStateMachineTransition_h244f"), "hide_main", "settings_show", SubResource("AnimationNodeStateMachineTransition_tfri3"), "settings_show", "settings_hide", SubResource("AnimationNodeStateMachineTransition_g8cu4"), "settings_hide", "show_main", SubResource("AnimationNodeStateMachineTransition_31te3")]
+graph_offset = Vector2(-133, -34)
 
 [node name="MainMenu" type="Control"]
 process_mode = 3
@@ -411,7 +436,15 @@ layout_mode = 1
 mouse_filter = 1
 theme = ExtResource("3_iqjs4")
 
-[node name="ButtonsMargins" type="MarginContainer" parent="."]
+[node name="Menu" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ButtonsMargins" type="MarginContainer" parent="Menu"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -424,8 +457,7 @@ theme_override_constants/margin_top = 25
 theme_override_constants/margin_right = 25
 theme_override_constants/margin_bottom = 25
 
-[node name="ButtonsPanel" type="Panel" parent="ButtonsMargins"]
-modulate = Color(0, 0, 0, 1)
+[node name="ButtonsPanel" type="Panel" parent="Menu/ButtonsMargins"]
 self_modulate = Color(1, 1, 1, 0.380392)
 custom_minimum_size = Vector2(275, 120)
 layout_mode = 2
@@ -433,7 +465,7 @@ size_flags_horizontal = 0
 size_flags_vertical = 8
 theme = ExtResource("3_iqjs4")
 
-[node name="MarginContainer" type="MarginContainer" parent="ButtonsMargins/ButtonsPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="Menu/ButtonsMargins/ButtonsPanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -446,7 +478,7 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="ButtonsContainer" type="VBoxContainer" parent="ButtonsMargins/ButtonsPanel/MarginContainer"]
+[node name="ButtonsContainer" type="VBoxContainer" parent="Menu/ButtonsMargins/ButtonsPanel/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -454,7 +486,7 @@ theme = ExtResource("3_iqjs4")
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="PlayButton" type="Button" parent="ButtonsMargins/ButtonsPanel/MarginContainer/ButtonsContainer"]
+[node name="PlayButton" type="Button" parent="Menu/ButtonsMargins/ButtonsPanel/MarginContainer/ButtonsContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_top = NodePath("../ExitButton")
@@ -467,7 +499,7 @@ text = "PLAY"
 alignment = 0
 language = "en_US"
 
-[node name="SettingsButton" type="Button" parent="ButtonsMargins/ButtonsPanel/MarginContainer/ButtonsContainer"]
+[node name="SettingsButton" type="Button" parent="Menu/ButtonsMargins/ButtonsPanel/MarginContainer/ButtonsContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_top = NodePath("../PlayButton")
@@ -479,7 +511,7 @@ theme = ExtResource("3_iqjs4")
 text = "SETTINGS"
 alignment = 0
 
-[node name="ExitButton" type="Button" parent="ButtonsMargins/ButtonsPanel/MarginContainer/ButtonsContainer"]
+[node name="ExitButton" type="Button" parent="Menu/ButtonsMargins/ButtonsPanel/MarginContainer/ButtonsContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_top = NodePath("../SettingsButton")
@@ -491,13 +523,16 @@ theme = ExtResource("3_iqjs4")
 text = "EXIT"
 alignment = 0
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Menu"]
+libraries = {
+"": SubResource("AnimationLibrary_yqlum")
+}
+
 [node name="Settings" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -8.0
-offset_right = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -509,7 +544,8 @@ visible = false
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
-offset_right = 305.0
+offset_left = -335.0
+offset_right = -30.0
 grow_vertical = 2
 theme = ExtResource("3_iqjs4")
 theme_override_constants/margin_left = 25
@@ -602,8 +638,8 @@ anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -1152.0
-offset_right = -321.996
+offset_left = 25.0
+offset_right = 855.005
 grow_horizontal = 0
 grow_vertical = 2
 theme = ExtResource("3_iqjs4")
@@ -776,8 +812,12 @@ step = 0.05
 value = 1.0
 editable = false
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Settings"]
+libraries = {
+"": SubResource("AnimationLibrary_1o6r7")
+}
+
 [node name="VersionMargins" type="MarginContainer" parent="."]
-modulate = Color(0, 0, 0, 1)
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -816,13 +856,11 @@ libraries = {
 tree_root = SubResource("AnimationNodeStateMachine_131w1")
 anim_player = NodePath("../AnimationPlayer")
 parameters/hide_main/Add2/add_amount = 1.0
-parameters/hide_settings/Add2/add_amount = 1.0
 parameters/show_main/Add2/add_amount = 1.0
-parameters/show_settings/Add2/add_amount = 1.0
 
-[connection signal="pressed" from="ButtonsMargins/ButtonsPanel/MarginContainer/ButtonsContainer/PlayButton" to="." method="_on_play_button_pressed"]
-[connection signal="pressed" from="ButtonsMargins/ButtonsPanel/MarginContainer/ButtonsContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="ButtonsMargins/ButtonsPanel/MarginContainer/ButtonsContainer/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="Menu/ButtonsMargins/ButtonsPanel/MarginContainer/ButtonsContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="Menu/ButtonsMargins/ButtonsPanel/MarginContainer/ButtonsContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="Menu/ButtonsMargins/ButtonsPanel/MarginContainer/ButtonsContainer/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="Settings/ButtonsMargins/ButtonsPanel/MarginContainer/ButtonsContainer/AudioButton" to="." method="_on_audio_button_pressed"]
 [connection signal="pressed" from="Settings/ButtonsMargins/ButtonsPanel/MarginContainer/ButtonsContainer/GraphicsButton" to="." method="_on_graphics_button_pressed"]
 [connection signal="pressed" from="Settings/ButtonsMargins/ButtonsPanel/MarginContainer/ButtonsContainer/InputButton" to="." method="_on_input_button_pressed"]

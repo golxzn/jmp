@@ -77,7 +77,7 @@ func show_settings():
 	set_process_input(true)
 	_set_main_buttons_disabled(true)
 
-	animation_playback.travel("show_settings")
+	animation_playback.travel("settings_show")
 
 	await animation_tree.animation_finished
 	_set_settings_buttons_disabled(false)
