@@ -1,11 +1,11 @@
 [gd_scene load_steps=39 format=3 uid="uid://bs3d5i8crch84"]
 
-[ext_resource type="Texture2D" uid="uid://bwn7ygyb0odym" path="res://assets/images/textures/cubes/cube.png" id="1_kmqy5"]
 [ext_resource type="Script" path="res://scenes/characters/player/player.gd" id="1_mfave"]
 [ext_resource type="Curve" uid="uid://b4gxfw82qvdds" path="res://scenes/characters/player/curves/dash_speed_curve.tres" id="2_wfstn"]
 [ext_resource type="Curve" uid="uid://bvfqik0okq6ni" path="res://scenes/characters/player/curves/climb_resistance_curve.tres" id="3_8smed"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="3_o6cun"]
 [ext_resource type="Material" uid="uid://cbnc41iyr8fjq" path="res://scenes/characters/player/materials/pixel_destorsion.tres" id="4_fkpy4"]
+[ext_resource type="Texture2D" uid="uid://c0do15g5xf84w" path="res://assets/images/textures/cubes/chip.png" id="5_j2p45"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="5_uoeii"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="6_gsiui"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="7_2mu1g"]
@@ -153,7 +153,7 @@ climb_resistance_curve = ExtResource("3_8smed")
 material = ExtResource("4_fkpy4")
 position = Vector2(0, 2.38419e-07)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_kmqy5")
+texture = ExtResource("5_j2p45")
 
 [node name="VFX" type="Node2D" parent="."]
 
